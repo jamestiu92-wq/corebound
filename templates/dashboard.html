@@ -1,0 +1,1977 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>COREBOUND - Dashboard</title>
+
+
+    <style>
+
+        /* ==================================================
+           RESET
+           ================================================== */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+        }
+
+
+        body {
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #eaf9fc;
+
+            color: #111;
+
+        }
+
+
+        /* ==================================================
+           TOP HEADER
+           ================================================== */
+
+        .top-header {
+
+            width: 100%;
+
+            height: 78px;
+
+            background: #ffdc4a;
+
+            border-bottom:
+                5px solid #008fd0;
+
+            display: flex;
+
+            align-items: center;
+
+            position: relative;
+
+            padding-left: 102px;
+
+            padding-right: 22px;
+
+        }
+
+
+        /* ==================================================
+           LOGO
+           ================================================== */
+
+        .logo-wrapper {
+
+            position: absolute;
+
+            left: 0;
+
+            top: 0;
+
+            width: 85px;
+
+            height: 75px;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            background: #ffffff;
+
+            border:
+                2px solid #008fd0;
+
+            overflow: hidden;
+
+        }
+
+
+        .logo {
+
+            width: 68px;
+
+            height: 68px;
+
+            border-radius: 50%;
+
+            object-fit: cover;
+
+            display: block;
+
+        }
+
+
+        /* ==================================================
+           BRAND
+           ================================================== */
+
+        .brand {
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            min-width: 390px;
+
+        }
+
+
+        .brand-title {
+
+            color: #ffffff;
+
+            font-family:
+                Georgia,
+                "Times New Roman",
+                serif;
+
+            font-size: 31px;
+
+            line-height: 30px;
+
+            font-weight: normal;
+
+            letter-spacing: 0.5px;
+
+            text-shadow:
+                1px 1px 2px rgba(
+                    0,
+                    0,
+                    0,
+                    0.45
+                );
+
+        }
+
+
+        .brand-subtitle {
+
+            color: #005f91;
+
+            font-family:
+                Georgia,
+                "Times New Roman",
+                serif;
+
+            font-size: 13px;
+
+            line-height: 15px;
+
+        }
+
+
+        /* ==================================================
+           HEADER RIGHT
+           ================================================== */
+
+        .header-right {
+
+            margin-left: auto;
+
+            display: flex;
+
+            align-items: center;
+
+            height: 100%;
+
+            gap: 25px;
+
+        }
+
+
+        /* SEARCH */
+
+        .search-container {
+
+            display: flex;
+
+            align-items: center;
+
+        }
+
+
+        .search-box {
+
+            width: 290px;
+
+            height: 32px;
+
+            border:
+                1px solid #333;
+
+            border-radius: 20px;
+
+            background: #ffffff;
+
+            outline: none;
+
+            padding:
+                0 15px;
+
+            font-size: 13px;
+
+        }
+
+
+        .search-box:focus {
+
+            border-color: #007eb8;
+
+            box-shadow:
+                0 0 0 2px
+                rgba(
+                    0,
+                    142,
+                    208,
+                    0.15
+                );
+
+        }
+
+
+        /* NOTIFICATION */
+
+        .notification {
+
+            width: 28px;
+
+            height: 35px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 25px;
+
+            color: #111;
+
+            cursor: pointer;
+
+        }
+
+
+        /* USER */
+
+        .user-area {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+        }
+
+
+        .user-icon {
+
+            width: 46px;
+
+            height: 46px;
+
+            border-radius: 50%;
+
+            background: #ffffff;
+
+            border:
+                2px solid #ffffff;
+
+            outline:
+                1px solid #333;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 29px;
+
+            color: #111;
+
+        }
+
+
+        .user-details {
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            min-width: 72px;
+
+        }
+
+
+        .user-name {
+
+            font-family:
+                Georgia,
+                "Times New Roman",
+                serif;
+
+            font-size: 14px;
+
+            line-height: 17px;
+
+            font-weight: bold;
+
+        }
+
+
+        .user-role {
+
+            font-family:
+                Georgia,
+                "Times New Roman",
+                serif;
+
+            font-size: 12px;
+
+            line-height: 15px;
+
+        }
+
+
+        .user-arrow {
+
+            font-size: 20px;
+
+            margin-left: 7px;
+
+        }
+
+
+        /* ==================================================
+           NAVIGATION
+           ================================================== */
+
+        .navigation {
+
+            width: 100%;
+
+            height: 48px;
+
+            background: #effcff;
+
+            border-bottom:
+                1px solid #b8c4c8;
+
+            display: flex;
+
+            align-items: stretch;
+
+        }
+
+
+        .nav-item {
+
+            height: 48px;
+
+            padding:
+                0 18px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 5px;
+
+            text-decoration: none;
+
+            color: #111;
+
+            font-size: 14px;
+
+            border-right:
+                1px solid #c2c9cc;
+
+            white-space: nowrap;
+
+            transition:
+                background 0.15s ease;
+
+        }
+
+
+        .nav-item:hover {
+
+            background: #d9f5fc;
+
+        }
+
+
+        .nav-item.active {
+
+            background: #00a9e8;
+
+            color: #000;
+
+        }
+
+
+        .nav-icon {
+
+            font-size: 20px;
+
+            line-height: 1;
+
+        }
+
+
+        .logout {
+
+            margin-left: auto;
+
+            min-width: 197px;
+
+        }
+
+
+        /* ==================================================
+           MAIN DASHBOARD
+           ================================================== */
+
+        .dashboard {
+
+            position: relative;
+
+            width: 100%;
+
+            min-height: 498px;
+
+            overflow: hidden;
+
+            padding:
+                23px 25px 34px;
+
+            background-image:
+
+                linear-gradient(
+                    rgba(
+                        0,
+                        111,
+                        177,
+                        0.80
+                    ),
+                    rgba(
+                        0,
+                        91,
+                        157,
+                        0.86
+                    )
+                ),
+
+                url(
+                    "{{ url_for(
+                        'static',
+                        filename='images/LNU.png'
+                    ) }}"
+                );
+
+            background-size: cover;
+
+            background-position: center;
+
+            background-repeat: no-repeat;
+
+        }
+
+
+        /* ==================================================
+           WELCOME
+           ================================================== */
+
+        .welcome-title {
+
+            color: #ffffff;
+
+            font-family:
+                Georgia,
+                "Times New Roman",
+                serif;
+
+            font-size: 36px;
+
+            font-weight: bold;
+
+            line-height: 40px;
+
+            text-shadow:
+                1px 2px 2px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.2
+                );
+
+        }
+
+
+        .welcome-subtitle {
+
+            color: #ffffff;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            margin-top: 1px;
+
+        }
+
+
+        /* ==================================================
+           STATISTICS
+           ================================================== */
+
+        .stats {
+
+            width: 750px;
+
+            max-width: 90%;
+
+            margin:
+                38px auto 29px;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 20px;
+
+        }
+
+
+        .stat-card {
+
+            height: 105px;
+
+            background: #ffffff;
+
+            border-radius: 19px;
+
+            box-shadow:
+                0 3px 4px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.35
+                );
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+        }
+
+
+        .stat-heading {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 8px;
+
+            color: #00648f;
+
+            font-size: 11px;
+
+            font-weight: bold;
+
+        }
+
+
+        .stat-icon {
+
+            font-size: 25px;
+
+            color: #111;
+
+            line-height: 1;
+
+        }
+
+
+        .stat-card.resolved
+        .stat-icon {
+
+            color: #00c853;
+
+        }
+
+
+        .stat-value {
+
+            color: #e4c653;
+
+            font-family:
+                Georgia,
+                "Times New Roman",
+                serif;
+
+            font-size: 30px;
+
+            font-weight: bold;
+
+            margin-top: 4px;
+
+            line-height: 32px;
+
+        }
+
+
+        /* ==================================================
+           LOWER CARDS
+           ================================================== */
+
+        .lower-content {
+
+            width: 750px;
+
+            max-width: 90%;
+
+            margin:
+                0 auto;
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap: 20px;
+
+        }
+
+
+        .panel {
+
+            height: 185px;
+
+            background: #ffffff;
+
+            border-radius: 19px;
+
+            box-shadow:
+                0 3px 4px
+                rgba(
+                    0,
+                    0,
+                    0,
+                    0.35
+                );
+
+            padding:
+                20px 27px;
+
+        }
+
+
+        .panel-title {
+
+            color: #00618e;
+
+            font-size: 11px;
+
+            font-weight: bold;
+
+        }
+
+
+        /* ==================================================
+           STATUS OVERVIEW
+           ================================================== */
+
+        .status-content {
+
+            display: flex;
+
+            align-items: center;
+
+            height: 145px;
+
+        }
+
+
+        .donut {
+
+            width: 124px;
+
+            height: 124px;
+
+            min-width: 124px;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            position: relative;
+
+            margin-left: 0;
+
+        }
+
+
+        .donut::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 79px;
+
+            height: 79px;
+
+            border-radius: 50%;
+
+            background: #ffffff;
+
+        }
+
+
+        .donut-center {
+
+            position: relative;
+
+            z-index: 2;
+
+            text-align: center;
+
+        }
+
+
+        .donut-number {
+
+            color: #e4c653;
+
+            font-family:
+                Georgia,
+                "Times New Roman",
+                serif;
+
+            font-size: 28px;
+
+            font-weight: bold;
+
+            line-height: 30px;
+
+        }
+
+
+        .donut-label {
+
+            color: #555;
+
+            font-size: 9px;
+
+        }
+
+
+        .status-list {
+
+            margin-left: 27px;
+
+            flex: 1;
+
+        }
+
+
+        .status-row {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 25px 28px;
+
+            align-items: center;
+
+            margin:
+                11px 0;
+
+            font-size: 10px;
+
+            color: #555;
+
+        }
+
+
+        .status-count {
+
+            text-align: center;
+
+            color: #111;
+
+            font-weight: bold;
+
+        }
+
+
+        .status-percent {
+
+            text-align: right;
+
+        }
+
+
+        /* ==================================================
+           RECENT REPORTS
+           ================================================== */
+
+        .recent-header {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+        }
+
+
+        .view-all {
+
+            color: #00618e;
+
+            font-size: 11px;
+
+            font-weight: bold;
+
+            text-decoration: none;
+
+        }
+
+
+        .view-all:hover {
+
+            text-decoration: underline;
+
+        }
+
+
+        .reports-table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            margin-top: 7px;
+
+            table-layout: fixed;
+
+        }
+
+
+        .reports-table th {
+
+            text-align: left;
+
+            color: #111;
+
+            font-size: 10px;
+
+            font-weight: bold;
+
+            padding:
+                4px 3px;
+
+        }
+
+
+        .reports-table td {
+
+            color: #333;
+
+            font-size: 9px;
+
+            padding:
+                6px 3px;
+
+            overflow: hidden;
+
+            text-overflow: ellipsis;
+
+            white-space: nowrap;
+
+        }
+
+
+        .reports-table th:nth-child(1),
+        .reports-table td:nth-child(1) {
+
+            width: 28px;
+
+        }
+
+
+        .reports-table th:nth-child(2),
+        .reports-table td:nth-child(2) {
+
+            width: 75px;
+
+        }
+
+
+        .reports-table th:nth-child(3),
+        .reports-table td:nth-child(3) {
+
+            width: 80px;
+
+        }
+
+
+        .reports-table th:nth-child(4),
+        .reports-table td:nth-child(4) {
+
+            width: 65px;
+
+        }
+
+
+        .empty-reports {
+
+            text-align: center;
+
+            color: #777 !important;
+
+            padding-top: 45px !important;
+
+        }
+
+
+        /* ==================================================
+           BOTTOM INFORMATION
+           ================================================== */
+
+        .information {
+
+            width: 100%;
+
+            min-height: 101px;
+
+            background: #effcff;
+
+            display: flex;
+
+            align-items: center;
+
+            padding-left: 35px;
+
+            border-bottom:
+                5px solid #0083b6;
+
+        }
+
+
+        .information-image {
+
+            width: 140px;
+
+            height: 96px;
+
+            object-fit: cover;
+
+            margin-right: 72px;
+
+        }
+
+
+        .information-text h2 {
+
+            color: #00618e;
+
+            font-family:
+                Georgia,
+                "Times New Roman",
+                serif;
+
+            font-size: 19px;
+
+            margin-bottom: 6px;
+
+        }
+
+
+        .information-text p {
+
+            color: #111;
+
+            font-family:
+                Georgia,
+                "Times New Roman",
+                serif;
+
+            font-size: 11px;
+
+            font-weight: bold;
+
+            font-style: italic;
+
+            line-height: 14px;
+
+            max-width: 400px;
+
+        }
+
+
+        /* ==================================================
+           RESPONSIVE
+           ================================================== */
+
+        @media (max-width: 1000px) {
+
+            .header-right {
+
+                gap: 12px;
+
+            }
+
+
+            .search-box {
+
+                width: 210px;
+
+            }
+
+
+            .brand {
+
+                min-width: 300px;
+
+            }
+
+
+            .nav-item {
+
+                padding:
+                    0 12px;
+
+            }
+
+        }
+
+
+        @media (max-width: 800px) {
+
+            .top-header {
+
+                height: auto;
+
+                min-height: 78px;
+
+                padding:
+                    8px 15px 8px 95px;
+
+            }
+
+
+            .brand {
+
+                min-width: auto;
+
+            }
+
+
+            .brand-title {
+
+                font-size: 25px;
+
+            }
+
+
+            .brand-subtitle {
+
+                font-size: 10px;
+
+            }
+
+
+            .header-right {
+
+                display: none;
+
+            }
+
+
+            .navigation {
+
+                overflow-x: auto;
+
+            }
+
+
+            .stats {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+
+            .lower-content {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .panel {
+
+                height: auto;
+
+                min-height: 185px;
+
+            }
+
+        }
+
+
+        @media (max-width: 500px) {
+
+            .logo-wrapper {
+
+                width: 70px;
+
+                height: 70px;
+
+            }
+
+
+            .logo {
+
+                width: 58px;
+
+                height: 58px;
+
+            }
+
+
+            .top-header {
+
+                padding-left: 80px;
+
+            }
+
+
+            .brand-title {
+
+                font-size: 21px;
+
+            }
+
+
+            .dashboard {
+
+                padding:
+                    18px 15px 25px;
+
+            }
+
+
+            .welcome-title {
+
+                font-size: 29px;
+
+            }
+
+
+            .stats {
+
+                max-width: 100%;
+
+                grid-template-columns:
+                    1fr 1fr;
+
+                gap: 12px;
+
+                margin-top: 28px;
+
+            }
+
+
+            .stat-card {
+
+                height: 100px;
+
+            }
+
+
+            .lower-content {
+
+                max-width: 100%;
+
+            }
+
+
+            .status-content {
+
+                overflow-x: auto;
+
+            }
+
+
+            .information {
+
+                padding:
+                    10px 15px;
+
+            }
+
+
+            .information-image {
+
+                width: 90px;
+
+                height: 70px;
+
+                margin-right: 20px;
+
+            }
+
+        }
+
+
+        @media (max-width: 360px) {
+
+            .stats {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            .navigation .nav-item {
+
+                font-size: 12px;
+
+                padding:
+                    0 10px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- ======================================================
+     HEADER
+     ====================================================== -->
+
+<header class="top-header">
+
+
+    <!-- LOGO -->
+
+    <div class="logo-wrapper">
+
+        <img
+            src="{{ url_for(
+                'static',
+                filename='images/logo.png'
+            ) }}"
+            alt="COREBOUND Logo"
+            class="logo"
+        >
+
+    </div>
+
+
+    <!-- BRAND -->
+
+    <div class="brand">
+
+        <div class="brand-title">
+            COREBOUND
+        </div>
+
+        <div class="brand-subtitle">
+            Facility and Equipment damaged Reporting
+        </div>
+
+        <div class="brand-subtitle">
+            System
+        </div>
+
+    </div>
+
+
+    <!-- RIGHT SIDE -->
+
+    <div class="header-right">
+
+
+        <div class="search-container">
+
+            <input
+                type="search"
+                class="search-box"
+                id="searchBox"
+                placeholder=""
+            >
+
+        </div>
+
+
+        <div
+            class="notification"
+            title="Notifications"
+        >
+            ♧
+        </div>
+
+
+        <div class="user-area">
+
+
+            <div class="user-icon">
+                ◯
+            </div>
+
+
+            <div class="user-details">
+
+                <div class="user-name">
+
+                    {{ session.get(
+                        'username',
+                        'User'
+                    ) }}
+
+                </div>
+
+
+                <div class="user-role">
+                    IT student
+                </div>
+
+            </div>
+
+
+            <div class="user-arrow">
+                ˅
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</header>
+
+
+<!-- ======================================================
+     NAVIGATION
+     ====================================================== -->
+
+<nav class="navigation">
+
+
+    <a
+        href="{{ url_for('dashboard') }}"
+        class="nav-item active"
+    >
+
+        <span class="nav-icon">
+            ⌂
+        </span>
+
+        Dashboard
+
+    </a>
+
+
+    <a
+        href="#"
+        class="nav-item"
+    >
+
+        <span class="nav-icon">
+            ◯
+        </span>
+
+        Profile
+
+    </a>
+
+
+    <a
+        href="#"
+        class="nav-item"
+    >
+
+        <span class="nav-icon">
+            ▧
+        </span>
+
+        Report an issue
+
+    </a>
+
+
+    <a
+        href="#"
+        class="nav-item"
+    >
+
+        <span class="nav-icon">
+            ■
+        </span>
+
+        My Reports
+
+    </a>
+
+
+    <a
+        href="#"
+        class="nav-item"
+    >
+
+        <span class="nav-icon">
+            ☞
+        </span>
+
+        Feedback
+
+    </a>
+
+
+    <a
+        href="#"
+        class="nav-item"
+    >
+
+        <span class="nav-icon">
+            ♧
+        </span>
+
+        Notifications
+
+    </a>
+
+
+    <a
+        href="{{ url_for('logout') }}"
+        class="nav-item logout"
+    >
+
+        <span class="nav-icon">
+            ⇥
+        </span>
+
+        Logout
+
+    </a>
+
+
+</nav>
+
+
+<!-- ======================================================
+     DASHBOARD
+     ====================================================== -->
+
+<main class="dashboard">
+
+
+    <!-- WELCOME -->
+
+    <h1 class="welcome-title">
+
+        Welcome,
+        {{ session.get(
+            'username',
+            'User'
+        ) }}!
+
+    </h1>
+
+
+    <p class="welcome-subtitle">
+
+        here's what happening with your facility reports .
+
+    </p>
+
+
+    <!-- ==================================================
+         STAT CARDS
+         ================================================== -->
+
+    <section class="stats">
+
+
+        <!-- TOTAL REPORTS -->
+
+        <div class="stat-card">
+
+            <div class="stat-heading">
+
+                <span class="stat-icon">
+                    ▤
+                </span>
+
+                <span>
+                    Total Reports
+                </span>
+
+            </div>
+
+
+            <div class="stat-value">
+
+                {{ total_reports }}
+
+            </div>
+
+        </div>
+
+
+        <!-- PENDING -->
+
+        <div class="stat-card">
+
+            <div class="stat-heading">
+
+                <span class="stat-icon">
+                    ◷
+                </span>
+
+                <span>
+                    Pending Reports
+                </span>
+
+            </div>
+
+
+            <div class="stat-value">
+
+                {{ pending_reports }}
+
+            </div>
+
+        </div>
+
+
+        <!-- IN PROGRESS -->
+
+        <div class="stat-card">
+
+            <div class="stat-heading">
+
+                <span class="stat-icon">
+                    ⚙
+                </span>
+
+                <span>
+                    In Progress
+                </span>
+
+            </div>
+
+
+            <div class="stat-value">
+
+                {{ in_progress_reports }}
+
+            </div>
+
+        </div>
+
+
+        <!-- RESOLVED -->
+
+        <div class="stat-card resolved">
+
+            <div class="stat-heading">
+
+                <span class="stat-icon">
+                    ✓
+                </span>
+
+                <span>
+                    Resolved Reports
+                </span>
+
+            </div>
+
+
+            <div class="stat-value">
+
+                {{ resolved_reports }}
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+    <!-- ==================================================
+         LOWER CONTENT
+         ================================================== -->
+
+    <section class="lower-content">
+
+
+        <!-- =================================================
+             STATUS OVERVIEW
+             ================================================= -->
+
+        <div class="panel">
+
+
+            <div class="panel-title">
+
+                Report Status Overview
+
+            </div>
+
+
+            <div class="status-content">
+
+
+                <!-- DONUT -->
+
+                <div
+                    class="donut"
+                    style="
+                        background:
+                        conic-gradient(
+                            #c6a333
+                            0deg,
+                            #c6a333
+                            {{ resolved_percentage }}%,
+                            #dedede
+                            {{ resolved_percentage }}%,
+                            #dedede
+                            100%
+                        );
+                    "
+                >
+
+                    <div class="donut-center">
+
+                        <div class="donut-number">
+
+                            {{ total_reports }}
+
+                        </div>
+
+
+                        <div class="donut-label">
+
+                            Total Reports
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- STATUS LIST -->
+
+                <div class="status-list">
+
+
+                    <div class="status-row">
+
+                        <span>
+                            Pending
+                        </span>
+
+                        <span class="status-count">
+                            {{ pending_reports }}
+                        </span>
+
+                        <span class="status-percent">
+                            {{ pending_percentage }}%
+                        </span>
+
+                    </div>
+
+
+                    <div class="status-row">
+
+                        <span>
+                            In Progress
+                        </span>
+
+                        <span class="status-count">
+                            {{ in_progress_reports }}
+                        </span>
+
+                        <span class="status-percent">
+                            {{ in_progress_percentage }}%
+                        </span>
+
+                    </div>
+
+
+                    <div class="status-row">
+
+                        <span>
+                            Resolved
+                        </span>
+
+                        <span class="status-count">
+                            {{ resolved_reports }}
+                        </span>
+
+                        <span class="status-percent">
+                            {{ resolved_percentage }}%
+                        </span>
+
+                    </div>
+
+
+                    <div class="status-row">
+
+                        <span>
+                            Rejected / Closed
+                        </span>
+
+                        <span class="status-count">
+                            {{ closed_reports }}
+                        </span>
+
+                        <span class="status-percent">
+                            {{ closed_percentage }}%
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+        <!-- =================================================
+             RECENT REPORTS
+             ================================================= -->
+
+        <div class="panel">
+
+
+            <div class="recent-header">
+
+
+                <div class="panel-title">
+
+                    Recent Reports
+
+                </div>
+
+
+                <a
+                    href="#"
+                    class="view-all"
+                >
+
+                    View all →
+
+                </a>
+
+
+            </div>
+
+
+            <table class="reports-table">
+
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            #
+                        </th>
+
+                        <th>
+                            issue
+                        </th>
+
+                        <th>
+                            location
+                        </th>
+
+                        <th>
+                            status
+                        </th>
+
+                        <th>
+                            update
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+
+                    {% if recent_reports %}
+
+
+                        {% for report in recent_reports %}
+
+                        <tr>
+
+                            <td>
+                                {{ loop.index }}
+                            </td>
+
+                            <td>
+                                {{ report["issue"] }}
+                            </td>
+
+                            <td>
+                                {{ report["location"] }}
+                            </td>
+
+                            <td>
+                                {{ report["status"] }}
+                            </td>
+
+                            <td>
+                                {{ report["updated_at"] }}
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
+
+                    {% else %}
+
+
+                        <tr>
+
+                            <td
+                                colspan="5"
+                                class="empty-reports"
+                            >
+
+                                No reports yet.
+
+                            </td>
+
+                        </tr>
+
+
+                    {% endif %}
+
+
+                </tbody>
+
+
+            </table>
+
+
+        </div>
+
+
+    </section>
+
+
+</main>
+
+
+<!--======================================================
+    BOTTOM INFORMATION
+    ====================================================== -->
+
+<section class="information">
+
+
+    <img
+        src="{{ url_for(
+            'static',
+            filename='images/LNU.png'
+        ) }}"
+        alt="LNU Campus"
+        class="information-image"
+    >
+
+
+    <div class="information-text">
+
+        <h2>
+            A safer LNU, Together
+        </h2>
+
+
+        <p>
+
+            Report damaged or unsafe facilities so we can keep
+            our campus safe, clean, and ready for everyone.
+
+        </p>
+
+    </div>
+
+
+</section>
+
+
+</body>
+
+</html>
