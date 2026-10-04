@@ -1,0 +1,2128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>COREBOUND - Register</title>
+
+
+    <style>
+
+        /* =====================================================
+           RESET
+           ===================================================== */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        /* =====================================================
+           BODY
+           ===================================================== */
+
+        body {
+
+            min-height: 100vh;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 25px;
+
+            font-family:
+                Georgia,
+                "Times New Roman",
+                serif;
+
+            background-image:
+                linear-gradient(
+                    rgba(255, 255, 255, 0.15),
+                    rgba(255, 255, 255, 0.15)
+                ),
+                url(
+                    "{{ url_for(
+                        'static',
+                        filename='images/campus-background.jpg'
+                    ) }}"
+                );
+
+            background-size: cover;
+
+            background-position: center;
+
+            background-repeat: no-repeat;
+
+            background-attachment: fixed;
+
+        }
+
+
+        /* =====================================================
+           MAIN REGISTER CARD
+           ===================================================== */
+
+        .register-card {
+
+            width: 100%;
+
+            max-width: 660px;
+
+            background: #ffffff;
+
+            border-radius: 28px;
+
+            padding:
+                28px 38px 20px;
+
+            box-shadow:
+                15px 18px 25px
+                rgba(0, 0, 0, 0.30);
+
+        }
+
+
+        /* =====================================================
+           HEADER
+           ===================================================== */
+
+        .header {
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .header h1 {
+
+            font-size: 30px;
+
+            color: #000000;
+
+            font-weight: bold;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        .header p {
+
+            color: #00567d;
+
+            font-size: 18px;
+
+        }
+
+
+        /* =====================================================
+           FLASH MESSAGES
+           ===================================================== */
+
+        .flash-container {
+
+            margin-bottom: 12px;
+
+        }
+
+
+        .flash {
+
+            padding: 9px 12px;
+
+            border-radius: 7px;
+
+            font-size: 13px;
+
+            margin-bottom: 7px;
+
+        }
+
+
+        .flash.error {
+
+            background: #ffe5e5;
+
+            color: #b00000;
+
+            border: 1px solid #ffb3b3;
+
+        }
+
+
+        .flash.success {
+
+            background: #e3f7e8;
+
+            color: #176b2b;
+
+            border: 1px solid #a6d8b0;
+
+        }
+
+
+        /* =====================================================
+           FORM GRID
+           ===================================================== */
+
+        .form-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            column-gap: 82px;
+
+            row-gap: 12px;
+
+        }
+
+
+        .form-group {
+
+            width: 100%;
+
+        }
+
+
+        .full {
+
+            grid-column:
+                1 / -1;
+
+        }
+
+
+        /* =====================================================
+           LABELS
+           ===================================================== */
+
+        .form-group label {
+
+            display: block;
+
+            color: #111111;
+
+            font-size: 18px;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        .required {
+
+            color: #d00000;
+
+        }
+
+
+        /* =====================================================
+           INPUTS
+           ===================================================== */
+
+        .form-input,
+        .form-select {
+
+            width: 100%;
+
+            height: 48px;
+
+            border:
+                1px solid #555555;
+
+            border-radius: 9px;
+
+            padding:
+                0 13px;
+
+            background: #ffffff;
+
+            color: #222222;
+
+            font-family:
+                Georgia,
+                "Times New Roman",
+                serif;
+
+            font-size: 17px;
+
+            outline: none;
+
+        }
+
+
+        .form-input::placeholder {
+
+            color: #a5a5a5;
+
+            opacity: 1;
+
+        }
+
+
+        .form-input:focus,
+        .form-select:focus {
+
+            border:
+                2px solid #1478b5;
+
+        }
+
+
+        /* =====================================================
+           PASSWORD INPUT
+           ===================================================== */
+
+        .input-wrapper {
+
+            position: relative;
+
+            width: 100%;
+
+        }
+
+
+        .password-input {
+
+            padding-right: 48px;
+
+        }
+
+
+        .toggle-password {
+
+            position: absolute;
+
+            right: 11px;
+
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            border: none;
+
+            background: transparent;
+
+            cursor: pointer;
+
+            font-size: 24px;
+
+            color: #222222;
+
+            width: 32px;
+
+            height: 32px;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+        }
+
+
+        .toggle-password:hover {
+
+            opacity: 0.7;
+
+        }
+
+
+        /* =====================================================
+           PASSWORD REQUIREMENTS
+           ===================================================== */
+
+        .password-rules {
+
+            margin-top: 6px;
+
+            padding:
+                7px 13px;
+
+            border:
+                1px solid #555555;
+
+            border-radius: 9px;
+
+            background: #eefbff;
+
+            color: #ff4f4f;
+
+            font-size: 17px;
+
+            line-height: 24px;
+
+        }
+
+
+        .password-rules p {
+
+            margin-bottom: 1px;
+
+        }
+
+
+        .password-rules ul {
+
+            padding-left: 28px;
+
+            margin: 0;
+
+        }
+
+
+        .password-rules li {
+
+            margin: 0;
+
+        }
+
+
+        /* =====================================================
+           CAPTCHA
+           ===================================================== */
+
+        .captcha-container {
+
+            margin-top: 6px;
+
+            display: flex;
+
+            justify-content: flex-end;
+
+        }
+
+
+        .captcha-box {
+
+            width: 255px;
+
+            height: 50px;
+
+            border:
+                1px solid #777777;
+
+            background: #f5fcff;
+
+            display: flex;
+
+            align-items: center;
+
+            padding:
+                0 12px;
+
+            gap: 12px;
+
+        }
+
+
+        .captcha-box input {
+
+            width: 35px;
+
+            height: 35px;
+
+            cursor: pointer;
+
+            accent-color: #1478b5;
+
+        }
+
+
+        .captcha-text {
+
+            font-size: 17px;
+
+            color: #111111;
+
+            white-space: nowrap;
+
+        }
+
+
+        .captcha-symbol {
+
+            margin-left: auto;
+
+            font-family:
+                Arial,
+                sans-serif;
+
+            font-size: 27px;
+
+            color: #316fc1;
+
+        }
+
+
+        /* =====================================================
+           TERMS AGREEMENT
+           ===================================================== */
+
+        .terms-agreement {
+
+            grid-column:
+                1 / -1;
+
+            margin-top: 2px;
+
+        }
+
+
+        .terms-agreement label {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 8px;
+
+            font-family:
+                Georgia,
+                "Times New Roman",
+                serif;
+
+            font-size: 14px;
+
+            color: #333333;
+
+            cursor: pointer;
+
+        }
+
+
+        .terms-agreement input {
+
+            width: 17px;
+
+            height: 17px;
+
+            margin-top: 1px;
+
+            cursor: pointer;
+
+            accent-color: #1478b5;
+
+        }
+
+
+        .terms-agreement a {
+
+            color: #0074b5;
+
+            font-weight: bold;
+
+            text-decoration: underline;
+
+        }
+
+
+        /* =====================================================
+           BUTTON AREA
+           ===================================================== */
+
+        .button-area {
+
+            margin-top: 14px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+        }
+
+
+        /* =====================================================
+           REGISTER BUTTON
+           ===================================================== */
+
+        .register-button {
+
+            width: 255px;
+
+            height: 48px;
+
+            border: none;
+
+            border-radius: 9px;
+
+            background: #1478b5;
+
+            color: #ffffff;
+
+            font-family:
+                Georgia,
+                "Times New Roman",
+                serif;
+
+            font-size: 18px;
+
+            cursor: pointer;
+
+            box-shadow:
+                inset 3px 0 0
+                rgba(0, 0, 0, 0.15);
+
+        }
+
+
+        .register-button:hover {
+
+            background: #0e669d;
+
+        }
+
+
+        .register-button:active {
+
+            transform:
+                scale(0.99);
+
+        }
+
+
+        .register-button:disabled {
+
+            background: #7ea9c1;
+
+            cursor: not-allowed;
+
+        }
+
+
+        /* =====================================================
+           TERMS AND CONDITIONS BUTTON
+           ===================================================== */
+
+        .terms-button {
+
+            margin-top: 10px;
+
+            border: none;
+
+            background: transparent;
+
+            color: #0074b5;
+
+            font-family:
+                Georgia,
+                "Times New Roman",
+                serif;
+
+            font-size: 15px;
+
+            text-decoration: underline;
+
+            cursor: pointer;
+
+        }
+
+
+        .terms-button:hover {
+
+            color: #004f7a;
+
+        }
+
+
+        /* =====================================================
+           LOGIN LINK
+           ===================================================== */
+
+        .login-section {
+
+            text-align: center;
+
+            margin-top: 7px;
+
+            font-size: 17px;
+
+            color: #111111;
+
+        }
+
+
+        .login-section a {
+
+            color: #0078b8;
+
+            text-decoration: none;
+
+        }
+
+
+        .login-section a:hover {
+
+            text-decoration: underline;
+
+        }
+
+
+        /* =====================================================
+           TERMS MODAL
+           ===================================================== */
+
+        .terms-modal {
+
+            display: none;
+
+            position: fixed;
+
+            z-index: 9999;
+
+            left: 0;
+
+            top: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            background:
+                rgba(0, 0, 0, 0.60);
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 20px;
+
+        }
+
+
+        .terms-modal.active {
+
+            display: flex;
+
+        }
+
+
+        /* =====================================================
+           TERMS BOX
+           ===================================================== */
+
+        .terms-box {
+
+            width: 100%;
+
+            max-width: 650px;
+
+            max-height: 82vh;
+
+            background: #ffffff;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 15px 40px
+                rgba(0, 0, 0, 0.40);
+
+            display: flex;
+
+            flex-direction: column;
+
+        }
+
+
+        /* =====================================================
+           TERMS HEADER
+           ===================================================== */
+
+        .terms-header {
+
+            background: #ffdb4a;
+
+            padding:
+                16px 22px;
+
+            border-bottom:
+                4px solid #1478b5;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+        }
+
+
+        .terms-header h2 {
+
+            font-family:
+                Georgia,
+                "Times New Roman",
+                serif;
+
+            color: #00567d;
+
+            font-size: 23px;
+
+        }
+
+
+        .close-terms {
+
+            border: none;
+
+            background: transparent;
+
+            font-size: 30px;
+
+            cursor: pointer;
+
+            color: #222222;
+
+        }
+
+
+        .close-terms:hover {
+
+            color: #d00000;
+
+        }
+
+
+        /* =====================================================
+           TERMS CONTENT
+           ===================================================== */
+
+        .terms-content {
+
+            padding:
+                22px 26px;
+
+            overflow-y: auto;
+
+            color: #222222;
+
+            font-family:
+                Georgia,
+                "Times New Roman",
+                serif;
+
+            font-size: 14px;
+
+            line-height: 1.55;
+
+        }
+
+
+        .terms-content h3 {
+
+            color: #00618e;
+
+            font-size: 16px;
+
+            margin-top: 17px;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        .terms-content h3:first-child {
+
+            margin-top: 0;
+
+        }
+
+
+        .terms-content p {
+
+            margin-bottom: 8px;
+
+        }
+
+
+        /* =====================================================
+           TERMS FOOTER
+           ===================================================== */
+
+        .terms-footer {
+
+            padding:
+                12px 20px;
+
+            border-top:
+                1px solid #dddddd;
+
+            background: #f7fcfd;
+
+            text-align: right;
+
+        }
+
+
+        .terms-ok {
+
+            border: none;
+
+            border-radius: 7px;
+
+            background: #1478b5;
+
+            color: #ffffff;
+
+            padding:
+                9px 20px;
+
+            font-family:
+                Georgia,
+                "Times New Roman",
+                serif;
+
+            font-size: 14px;
+
+            cursor: pointer;
+
+        }
+
+
+        .terms-ok:hover {
+
+            background: #0e669d;
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+           ===================================================== */
+
+        @media (max-width: 700px) {
+
+            body {
+
+                padding: 15px;
+
+                align-items: flex-start;
+
+            }
+
+
+            .register-card {
+
+                margin-top: 10px;
+
+                padding:
+                    25px 22px 20px;
+
+                border-radius: 22px;
+
+            }
+
+
+            .form-grid {
+
+                grid-template-columns: 1fr;
+
+                column-gap: 0;
+
+            }
+
+
+            .full {
+
+                grid-column: auto;
+
+            }
+
+
+            .terms-agreement {
+
+                grid-column: auto;
+
+            }
+
+
+            .header h1 {
+
+                font-size: 27px;
+
+            }
+
+
+            .header p {
+
+                font-size: 16px;
+
+            }
+
+
+            .form-group label {
+
+                font-size: 17px;
+
+            }
+
+
+            .form-input,
+            .form-select {
+
+                height: 46px;
+
+            }
+
+
+            .password-rules {
+
+                font-size: 15px;
+
+            }
+
+
+            .captcha-container {
+
+                justify-content: flex-start;
+
+            }
+
+        }
+
+
+        @media (max-width: 430px) {
+
+            .register-card {
+
+                padding:
+                    22px 17px 18px;
+
+            }
+
+
+            .captcha-box {
+
+                width: 100%;
+
+            }
+
+
+            .register-button {
+
+                width: 100%;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     REGISTER CARD
+     ===================================================== -->
+
+<div class="register-card">
+
+
+    <!-- =================================================
+         HEADER
+         ================================================= -->
+
+    <div class="header">
+
+        <h1>
+            Create Account
+        </h1>
+
+        <p>
+            Fill the information below to register.
+        </p>
+
+    </div>
+
+
+    <!-- =================================================
+         FLASH MESSAGES FROM FLASK
+         ================================================= -->
+
+    {% with messages = get_flashed_messages(
+        with_categories=true
+    ) %}
+
+        {% if messages %}
+
+            <div class="flash-container">
+
+                {% for category, message in messages %}
+
+                    <div class="flash {{ category }}">
+
+                        {{ message }}
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    <!-- =================================================
+         REGISTRATION FORM
+         ================================================= -->
+
+    <form
+        id="registerForm"
+        method="POST"
+        action="{{ url_for('register') }}"
+        novalidate
+    >
+
+
+        <div class="form-grid">
+
+
+            <!-- =========================================
+                 FULL NAME
+                 ========================================= -->
+
+            <div class="form-group">
+
+                <label for="full_name">
+
+                    Full Name
+                    <span class="required">*</span>
+
+                </label>
+
+                <input
+                    type="text"
+                    id="full_name"
+                    name="full_name"
+                    class="form-input"
+                    placeholder="Enter your Full Name"
+                    autocomplete="name"
+                    required
+                >
+
+            </div>
+
+
+            <!-- =========================================
+                 USERNAME
+                 ========================================= -->
+
+            <div class="form-group">
+
+                <label for="username">
+
+                    Username
+                    <span class="required">*</span>
+
+                </label>
+
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    class="form-input"
+                    placeholder="Enter your Username"
+                    autocomplete="username"
+                    minlength="3"
+                    required
+                >
+
+            </div>
+
+
+            <!-- =========================================
+                 EMAIL
+                 ========================================= -->
+
+            <div class="form-group">
+
+                <label for="email">
+
+                    E-mail Address
+                    <span class="required">*</span>
+
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    class="form-input"
+                    placeholder="Enter your e-mail address"
+                    autocomplete="email"
+                    required
+                >
+
+            </div>
+
+
+            <!-- =========================================
+                 PASSWORD
+                 ========================================= -->
+
+            <div class="form-group">
+
+                <label for="password">
+
+                    Password
+                    <span class="required">*</span>
+
+                </label>
+
+
+                <div class="input-wrapper">
+
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        class="form-input password-input"
+                        placeholder="Enter your Password"
+                        autocomplete="new-password"
+                        required
+                    >
+
+
+                    <button
+                        type="button"
+                        class="toggle-password"
+                        id="togglePassword"
+                        aria-label="Show password"
+                    >
+
+                        ◉
+
+                    </button>
+
+                </div>
+
+
+                <div class="password-rules">
+
+                    <p>
+                        Password must contain:
+                    </p>
+
+                    <ul>
+
+                        <li>
+                            At least 8 characters
+                        </li>
+
+                        <li>
+                            1 uppercase
+                        </li>
+
+                        <li>
+                            1 lowercase
+                        </li>
+
+                        <li>
+                            1 number
+                        </li>
+
+                        <li>
+                            1 special character
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================================
+                 DEPARTMENT
+                 ========================================= -->
+
+            <div class="form-group">
+
+                <label for="department">
+
+                    Department
+
+                </label>
+
+                <input
+                    type="text"
+                    id="department"
+                    name="department"
+                    class="form-input"
+                    placeholder="Enter your Department"
+                >
+
+            </div>
+
+
+            <!-- =========================================
+                 CONFIRM PASSWORD
+                 ========================================= -->
+
+            <div class="form-group">
+
+                <label for="confirm_password">
+
+                    Confirm Password
+                    <span class="required">*</span>
+
+                </label>
+
+
+                <div class="input-wrapper">
+
+                    <input
+                        type="password"
+                        id="confirm_password"
+                        name="confirm_password"
+                        class="form-input password-input"
+                        placeholder="confirm your password"
+                        autocomplete="new-password"
+                        required
+                    >
+
+
+                    <button
+                        type="button"
+                        class="toggle-password"
+                        id="toggleConfirmPassword"
+                        aria-label="Show password"
+                    >
+
+                        ◉
+
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================================
+                 CAPTCHA
+                 ========================================= -->
+
+            <div class="form-group full">
+
+                <div class="captcha-container">
+
+                    <div class="captcha-box">
+
+                        <input
+                            type="checkbox"
+                            id="captcha"
+                            name="captcha"
+                            value="verified"
+                            required
+                        >
+
+                        <span class="captcha-text">
+
+                            I'm not a robot
+
+                        </span>
+
+
+                        <span class="captcha-symbol">
+
+                            ↻
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =========================================
+                 TERMS AGREEMENT CHECKBOX
+                 ========================================= -->
+
+            <div class="terms-agreement">
+
+                <label for="terms">
+
+                    <input
+                        type="checkbox"
+                        id="terms"
+                        name="terms"
+                        value="accepted"
+                        required
+                    >
+
+                    <span>
+
+                        I agree to the
+                        <a
+                            href="#"
+                            id="termsInlineLink"
+                        >
+                            Terms and Conditions
+                        </a>
+                        of COREBOUND.
+
+                    </span>
+
+                </label>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- =================================================
+             BUTTON AREA
+             ================================================= -->
+
+        <div class="button-area">
+
+
+            <!-- =============================================
+                 REGISTER
+                 ============================================= -->
+
+            <button
+                type="submit"
+                class="register-button"
+                id="registerButton"
+            >
+
+                Register
+
+            </button>
+
+
+            <!-- =============================================
+                 TERMS AND CONDITIONS BUTTON
+                 ============================================= -->
+
+            <button
+                type="button"
+                class="terms-button"
+                id="termsButton"
+            >
+
+                Terms and Conditions
+
+            </button>
+
+
+        </div>
+
+
+        <!-- =================================================
+             LOGIN
+             ================================================= -->
+
+        <div class="login-section">
+
+            already have an account?
+
+            <a href="{{ url_for('login') }}">
+
+                Login
+
+            </a>
+
+        </div>
+
+
+    </form>
+
+
+</div>
+
+
+<!-- =====================================================
+     TERMS AND CONDITIONS MODAL
+     ===================================================== -->
+
+<div
+    class="terms-modal"
+    id="termsModal"
+>
+
+
+    <div class="terms-box">
+
+
+        <!-- =============================================
+             MODAL HEADER
+             ============================================= -->
+
+        <div class="terms-header">
+
+            <h2>
+
+                Terms and Conditions
+
+            </h2>
+
+
+            <button
+                type="button"
+                class="close-terms"
+                id="closeTerms"
+            >
+
+                &times;
+
+            </button>
+
+        </div>
+
+
+        <!-- =============================================
+             TERMS CONTENT
+             ============================================= -->
+
+        <div class="terms-content">
+
+
+            <h3>
+                1. Acceptance of Terms
+            </h3>
+
+            <p>
+
+                By creating a COREBOUND account, you agree
+                to follow these Terms and Conditions and use
+                the system responsibly.
+
+            </p>
+
+
+            <h3>
+                2. Account Information
+            </h3>
+
+            <p>
+
+                You are responsible for providing accurate
+                information during registration and for
+                keeping your account information secure.
+
+            </p>
+
+
+            <h3>
+                3. Facility Reports
+            </h3>
+
+            <p>
+
+                COREBOUND is intended for reporting damaged,
+                unsafe, or malfunctioning facilities and
+                equipment within the campus. Reports should
+                contain truthful and relevant information.
+
+            </p>
+
+
+            <h3>
+                4. Appropriate Use
+            </h3>
+
+            <p>
+
+                Users must not submit false, misleading,
+                abusive, or inappropriate reports. The system
+                should only be used for legitimate facility
+                and equipment concerns.
+
+            </p>
+
+
+            <h3>
+                5. Report Information
+            </h3>
+
+            <p>
+
+                Information submitted through COREBOUND may
+                be reviewed by authorized personnel for the
+                purpose of evaluating and addressing reported
+                facility concerns.
+
+            </p>
+
+
+            <h3>
+                6. Account Security
+            </h3>
+
+            <p>
+
+                Users are responsible for keeping their
+                username and password confidential and should
+                not share their account credentials with
+                other individuals.
+
+            </p>
+
+
+            <h3>
+                7. Changes to the Terms
+            </h3>
+
+            <p>
+
+                The Terms and Conditions may be updated when
+                necessary to reflect changes in the COREBOUND
+                system or its intended use.
+
+            </p>
+
+
+            <h3>
+                8. Agreement
+            </h3>
+
+            <p>
+
+                By checking the agreement box during
+                registration, you confirm that you have read,
+                understood, and agreed to these Terms and
+                Conditions.
+
+            </p>
+
+
+        </div>
+
+
+        <!-- =============================================
+             MODAL FOOTER
+             ============================================= -->
+
+        <div class="terms-footer">
+
+            <button
+                type="button"
+                class="terms-ok"
+                id="termsOk"
+            >
+
+                I Understand
+
+            </button>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+     ===================================================== -->
+
+<script>
+
+
+    /* ====================================================
+       PASSWORD SHOW / HIDE
+       ==================================================== */
+
+    const password =
+        document.getElementById("password");
+
+    const confirmPassword =
+        document.getElementById(
+            "confirm_password"
+        );
+
+    const togglePassword =
+        document.getElementById(
+            "togglePassword"
+        );
+
+    const toggleConfirmPassword =
+        document.getElementById(
+            "toggleConfirmPassword"
+        );
+
+
+    togglePassword.addEventListener(
+        "click",
+        function () {
+
+            if (
+                password.type === "password"
+            ) {
+
+                password.type = "text";
+
+                togglePassword.textContent =
+                    "◉";
+
+            } else {
+
+                password.type = "password";
+
+                togglePassword.textContent =
+                    "◉";
+
+            }
+
+        }
+    );
+
+
+    toggleConfirmPassword.addEventListener(
+        "click",
+        function () {
+
+            if (
+                confirmPassword.type === "password"
+            ) {
+
+                confirmPassword.type = "text";
+
+                toggleConfirmPassword.textContent =
+                    "◉";
+
+            } else {
+
+                confirmPassword.type = "password";
+
+                toggleConfirmPassword.textContent =
+                    "◉";
+
+            }
+
+        }
+    );
+
+
+    /* ====================================================
+       TERMS MODAL
+       ==================================================== */
+
+    const termsModal =
+        document.getElementById(
+            "termsModal"
+        );
+
+    const termsButton =
+        document.getElementById(
+            "termsButton"
+        );
+
+    const termsInlineLink =
+        document.getElementById(
+            "termsInlineLink"
+        );
+
+    const closeTerms =
+        document.getElementById(
+            "closeTerms"
+        );
+
+    const termsOk =
+        document.getElementById(
+            "termsOk"
+        );
+
+
+    function openTerms() {
+
+        termsModal.classList.add(
+            "active"
+        );
+
+        document.body.style.overflow =
+            "hidden";
+
+    }
+
+
+    function closeTermsModal() {
+
+        termsModal.classList.remove(
+            "active"
+        );
+
+        document.body.style.overflow =
+            "";
+
+    }
+
+
+    termsButton.addEventListener(
+        "click",
+        openTerms
+    );
+
+
+    termsInlineLink.addEventListener(
+        "click",
+        function (event) {
+
+            event.preventDefault();
+
+            openTerms();
+
+        }
+    );
+
+
+    closeTerms.addEventListener(
+        "click",
+        closeTermsModal
+    );
+
+
+    termsOk.addEventListener(
+        "click",
+        closeTermsModal
+    );
+
+
+    termsModal.addEventListener(
+        "click",
+        function (event) {
+
+            if (
+                event.target === termsModal
+            ) {
+
+                closeTermsModal();
+
+            }
+
+        }
+    );
+
+
+    document.addEventListener(
+        "keydown",
+        function (event) {
+
+            if (
+                event.key === "Escape"
+            ) {
+
+                closeTermsModal();
+
+            }
+
+        }
+    );
+
+
+    /* ====================================================
+       FORM VALIDATION
+       ==================================================== */
+
+    const registerForm =
+        document.getElementById(
+            "registerForm"
+        );
+
+    const registerButton =
+        document.getElementById(
+            "registerButton"
+        );
+
+
+    registerForm.addEventListener(
+        "submit",
+        function (event) {
+
+
+            const fullName =
+                document.getElementById(
+                    "full_name"
+                ).value.trim();
+
+
+            const username =
+                document.getElementById(
+                    "username"
+                ).value.trim();
+
+
+            const email =
+                document.getElementById(
+                    "email"
+                ).value.trim();
+
+
+            const passwordValue =
+                password.value;
+
+
+            const confirmPasswordValue =
+                confirmPassword.value;
+
+
+            const captcha =
+                document.getElementById(
+                    "captcha"
+                );
+
+
+            const terms =
+                document.getElementById(
+                    "terms"
+                );
+
+
+            /* ==========================================
+               FULL NAME
+               ========================================== */
+
+            if (!fullName) {
+
+                event.preventDefault();
+
+                alert(
+                    "Please enter your full name."
+                );
+
+                return;
+
+            }
+
+
+            /* ==========================================
+               USERNAME
+               ========================================== */
+
+            if (
+                username.length < 3
+            ) {
+
+                event.preventDefault();
+
+                alert(
+                    "Username must be at least 3 characters."
+                );
+
+                return;
+
+            }
+
+
+            /* ==========================================
+               EMAIL
+               ========================================== */
+
+            const emailPattern =
+                /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+            if (
+                !emailPattern.test(email)
+            ) {
+
+                event.preventDefault();
+
+                alert(
+                    "Please enter a valid email address."
+                );
+
+                return;
+
+            }
+
+
+            /* ==========================================
+               PASSWORD LENGTH
+               ========================================== */
+
+            if (
+                passwordValue.length < 8
+            ) {
+
+                event.preventDefault();
+
+                alert(
+                    "Password must contain at least 8 characters."
+                );
+
+                return;
+
+            }
+
+
+            /* ==========================================
+               UPPERCASE
+               ========================================== */
+
+            if (
+                !/[A-Z]/.test(passwordValue)
+            ) {
+
+                event.preventDefault();
+
+                alert(
+                    "Password must contain at least one uppercase letter."
+                );
+
+                return;
+
+            }
+
+
+            /* ==========================================
+               LOWERCASE
+               ========================================== */
+
+            if (
+                !/[a-z]/.test(passwordValue)
+            ) {
+
+                event.preventDefault();
+
+                alert(
+                    "Password must contain at least one lowercase letter."
+                );
+
+                return;
+
+            }
+
+
+            /* ==========================================
+               NUMBER
+               ========================================== */
+
+            if (
+                !/[0-9]/.test(passwordValue)
+            ) {
+
+                event.preventDefault();
+
+                alert(
+                    "Password must contain at least one number."
+                );
+
+                return;
+
+            }
+
+
+            /* ==========================================
+               SPECIAL CHARACTER
+               ========================================== */
+
+            if (
+                !/[^A-Za-z0-9]/.test(passwordValue)
+            ) {
+
+                event.preventDefault();
+
+                alert(
+                    "Password must contain at least one special character."
+                );
+
+                return;
+
+            }
+
+
+            /* ==========================================
+               CONFIRM PASSWORD
+               ========================================== */
+
+            if (
+                passwordValue !==
+                confirmPasswordValue
+            ) {
+
+                event.preventDefault();
+
+                alert(
+                    "Passwords do not match."
+                );
+
+                return;
+
+            }
+
+
+            /* ==========================================
+               CAPTCHA
+               ========================================== */
+
+            if (!captcha.checked) {
+
+                event.preventDefault();
+
+                alert(
+                    "Please confirm that you are not a robot."
+                );
+
+                return;
+
+            }
+
+
+            /* ==========================================
+               TERMS
+               ========================================== */
+
+            if (!terms.checked) {
+
+                event.preventDefault();
+
+                alert(
+                    "Please agree to the Terms and Conditions."
+                );
+
+                return;
+
+            }
+
+
+            /* ==========================================
+               SUBMITTING
+               ========================================== */
+
+            registerButton.disabled = true;
+
+            registerButton.textContent =
+                "Registering...";
+
+        }
+    );
+
+
+</script>
+
+
+</body>
+
+</html>
