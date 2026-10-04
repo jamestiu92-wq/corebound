@@ -1,1263 +1,2128 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Register | Corebound</title>
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>COREBOUND - Register</title>
+
 
     <style>
+
+        /* =====================================================
+           RESET
+           ===================================================== */
+
         * {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
+
+
+        /* =====================================================
+           BODY
+           ===================================================== */
 
         body {
-            margin: 0;
-            min-height: 100vh;
-            font-family: Georgia, "Times New Roman", serif;
-            color: #111;
 
-            background:
-                linear-gradient(
-                    rgba(235, 243, 245, 0.78),
-                    rgba(235, 243, 245, 0.78)
-                ),
-                url("{{ url_for('static', filename='images/campus-background.jpg') }}")
-                center center / cover no-repeat fixed;
-        }
-
-        .page-shell {
             min-height: 100vh;
+
             display: flex;
-            align-items: center;
+
             justify-content: center;
-            padding: 35px 20px;
+
+            align-items: center;
+
+            padding: 25px;
+
+            font-family:
+                Georgia,
+                "Times New Roman",
+                serif;
+
+            background-image:
+                linear-gradient(
+                    rgba(255, 255, 255, 0.15),
+                    rgba(255, 255, 255, 0.15)
+                ),
+                url(
+                    "{{ url_for(
+                        'static',
+                        filename='images/campus-background.jpg'
+                    ) }}"
+                );
+
+            background-size: cover;
+
+            background-position: center;
+
+            background-repeat: no-repeat;
+
+            background-attachment: fixed;
+
         }
+
+
+        /* =====================================================
+           MAIN REGISTER CARD
+           ===================================================== */
 
         .register-card {
+
             width: 100%;
-            max-width: 500px;
-            background: #fff;
+
+            max-width: 660px;
+
+            background: #ffffff;
+
             border-radius: 28px;
-            padding: 38px 42px 32px;
+
+            padding:
+                28px 38px 20px;
+
             box-shadow:
-                10px 12px 0 rgba(0, 0, 0, 0.14),
-                0 8px 30px rgba(0, 0, 0, 0.12);
+                15px 18px 25px
+                rgba(0, 0, 0, 0.30);
+
         }
 
-        .register-header {
-            margin-bottom: 25px;
+
+        /* =====================================================
+           HEADER
+           ===================================================== */
+
+        .header {
+
+            margin-bottom: 20px;
+
         }
 
-        .register-header h1 {
-            margin: 0;
-            font-size: 34px;
-            line-height: 1.1;
+
+        .header h1 {
+
+            font-size: 30px;
+
+            color: #000000;
+
+            font-weight: bold;
+
+            margin-bottom: 5px;
+
         }
 
-        .register-header p {
-            margin: 5px 0 0;
+
+        .header p {
+
+            color: #00567d;
+
             font-size: 18px;
-            color: #00618b;
+
         }
 
-        .field {
-            margin-bottom: 16px;
+
+        /* =====================================================
+           FLASH MESSAGES
+           ===================================================== */
+
+        .flash-container {
+
+            margin-bottom: 12px;
+
         }
 
-        .field label {
-            display: block;
-            margin-bottom: 6px;
-            font-size: 17px;
-            font-weight: 600;
+
+        .flash {
+
+            padding: 9px 12px;
+
+            border-radius: 7px;
+
+            font-size: 13px;
+
+            margin-bottom: 7px;
+
         }
 
-        input[type="text"],
-        input[type="email"],
-        input[type="password"] {
+
+        .flash.error {
+
+            background: #ffe5e5;
+
+            color: #b00000;
+
+            border: 1px solid #ffb3b3;
+
+        }
+
+
+        .flash.success {
+
+            background: #e3f7e8;
+
+            color: #176b2b;
+
+            border: 1px solid #a6d8b0;
+
+        }
+
+
+        /* =====================================================
+           FORM GRID
+           ===================================================== */
+
+        .form-grid {
+
+            display: grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            column-gap: 82px;
+
+            row-gap: 12px;
+
+        }
+
+
+        .form-group {
+
             width: 100%;
-            height: 43px;
-            padding: 0 13px;
-            border: 1px solid #777;
-            border-radius: 8px;
-            background: #fff;
-            font-family: Georgia, "Times New Roman", serif;
-            font-size: 16px;
-            outline: none;
+
         }
 
-        input[type="text"]:focus,
-        input[type="email"]:focus,
-        input[type="password"]:focus {
-            border-color: #0877b5;
-            box-shadow: 0 0 0 2px rgba(8, 119, 181, 0.15);
+
+        .full {
+
+            grid-column:
+                1 / -1;
+
         }
 
-        input::placeholder {
-            color: #aaa;
-        }
 
-        .password-wrap {
-            position: relative;
-        }
+        /* =====================================================
+           LABELS
+           ===================================================== */
 
-        .password-wrap input {
-            padding-right: 48px;
-        }
+        .form-group label {
 
-        .password-toggle {
-            position: absolute;
-            top: 50%;
-            right: 7px;
-            transform: translateY(-50%);
-            width: 35px;
-            height: 35px;
-            border: 0;
-            border-radius: 50%;
-            background: transparent;
-            cursor: pointer;
-            color: #126d9d;
-            font-size: 17px;
-        }
-
-        .password-toggle:hover {
-            background: #eef6fa;
-        }
-
-        .strength-row {
-            display: flex;
-            align-items: center;
-            gap: 9px;
-            margin-top: 8px;
-        }
-
-        .strength-track {
-            height: 6px;
-            flex: 1;
-            background: #e2e2e2;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .strength-track span {
             display: block;
-            width: 0;
-            height: 100%;
-            background: #aaa;
-            border-radius: 10px;
-            transition: width .25s ease, background .25s ease;
+
+            color: #111111;
+
+            font-size: 18px;
+
+            margin-bottom: 5px;
+
         }
 
-        #strengthText {
-            min-width: 125px;
-            font-family: Arial, sans-serif;
-            font-size: 11px;
-            color: #666;
-            text-align: right;
+
+        .required {
+
+            color: #d00000;
+
         }
+
+
+        /* =====================================================
+           INPUTS
+           ===================================================== */
+
+        .form-input,
+        .form-select {
+
+            width: 100%;
+
+            height: 48px;
+
+            border:
+                1px solid #555555;
+
+            border-radius: 9px;
+
+            padding:
+                0 13px;
+
+            background: #ffffff;
+
+            color: #222222;
+
+            font-family:
+                Georgia,
+                "Times New Roman",
+                serif;
+
+            font-size: 17px;
+
+            outline: none;
+
+        }
+
+
+        .form-input::placeholder {
+
+            color: #a5a5a5;
+
+            opacity: 1;
+
+        }
+
+
+        .form-input:focus,
+        .form-select:focus {
+
+            border:
+                2px solid #1478b5;
+
+        }
+
+
+        /* =====================================================
+           PASSWORD INPUT
+           ===================================================== */
+
+        .input-wrapper {
+
+            position: relative;
+
+            width: 100%;
+
+        }
+
+
+        .password-input {
+
+            padding-right: 48px;
+
+        }
+
+
+        .toggle-password {
+
+            position: absolute;
+
+            right: 11px;
+
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            border: none;
+
+            background: transparent;
+
+            cursor: pointer;
+
+            font-size: 24px;
+
+            color: #222222;
+
+            width: 32px;
+
+            height: 32px;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+        }
+
+
+        .toggle-password:hover {
+
+            opacity: 0.7;
+
+        }
+
+
+        /* =====================================================
+           PASSWORD REQUIREMENTS
+           ===================================================== */
 
         .password-rules {
-            list-style: none;
-            margin: 8px 0 0;
-            padding: 0;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4px 10px;
+
+            margin-top: 6px;
+
+            padding:
+                7px 13px;
+
+            border:
+                1px solid #555555;
+
+            border-radius: 9px;
+
+            background: #eefbff;
+
+            color: #ff4f4f;
+
+            font-size: 17px;
+
+            line-height: 24px;
+
         }
+
+
+        .password-rules p {
+
+            margin-bottom: 1px;
+
+        }
+
+
+        .password-rules ul {
+
+            padding-left: 28px;
+
+            margin: 0;
+
+        }
+
 
         .password-rules li {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-family: Arial, sans-serif;
-            font-size: 11px;
-            color: #777;
+
+            margin: 0;
+
         }
 
-        .password-rules li.valid {
-            color: #238447;
-        }
 
-        .password-rules li.valid span {
-            color: #238447;
-        }
+        /* =====================================================
+           CAPTCHA
+           ===================================================== */
 
-        .caps-warning {
-            display: block;
+        .captcha-container {
+
             margin-top: 6px;
-            font-family: Arial, sans-serif;
-            font-size: 12px;
-            color: #9a6400;
+
+            display: flex;
+
+            justify-content: flex-end;
+
         }
 
-        .field-hint {
-            display: block;
-            margin-top: 4px;
-            font-family: Arial, sans-serif;
-            font-size: 10px;
-            color: #777;
-        }
-
-        .error-message {
-            display: block;
-            margin-top: 4px;
-            font-family: Arial, sans-serif;
-            font-size: 12px;
-            color: #c62828;
-        }
-
-        .input-error {
-            border-color: #c62828 !important;
-        }
-
-        .input-valid {
-            border-color: #31834b !important;
-        }
-
-        .form-message {
-            margin-bottom: 15px;
-            padding: 10px 12px;
-            border-radius: 7px;
-            font-family: Arial, sans-serif;
-            font-size: 13px;
-            line-height: 1.4;
-        }
-
-        .form-message.error {
-            background: #fff0f0;
-            border: 1px solid #e1a1a1;
-            color: #a32121;
-        }
-
-        .form-message.success {
-            background: #eef9f0;
-            border: 1px solid #9aca9e;
-            color: #22652c;
-        }
 
         .captcha-box {
-            min-height: 55px;
-            margin-top: 8px;
-            padding: 9px 12px;
-            border: 1px solid #999;
-            background: #fafafa;
+
+            width: 255px;
+
+            height: 50px;
+
+            border:
+                1px solid #777777;
+
+            background: #f5fcff;
+
             display: flex;
+
             align-items: center;
-            justify-content: space-between;
+
+            padding:
+                0 12px;
+
+            gap: 12px;
+
         }
 
-        .captcha-label {
-            display: flex;
-            align-items: center;
-            gap: 10px;
+
+        .captcha-box input {
+
+            width: 35px;
+
+            height: 35px;
+
             cursor: pointer;
-            font-family: Arial, sans-serif;
-            font-size: 14px;
-            font-weight: 600;
+
+            accent-color: #1478b5;
+
         }
 
-        .captcha-label input {
-            width: 24px;
-            height: 24px;
-            cursor: pointer;
+
+        .captcha-text {
+
+            font-size: 17px;
+
+            color: #111111;
+
+            white-space: nowrap;
+
         }
 
-        .captcha-mark {
-            font-family: Arial, sans-serif;
-            font-size: 25px;
-            color: #4285f4;
+
+        .captcha-symbol {
+
+            margin-left: auto;
+
+            font-family:
+                Arial,
+                sans-serif;
+
+            font-size: 27px;
+
+            color: #316fc1;
+
         }
 
-        .terms-row {
-            display: flex;
-            align-items: flex-start;
-            gap: 8px;
-            margin-top: 12px;
-        }
 
-        .terms-row input {
-            width: 16px;
-            height: 16px;
+        /* =====================================================
+           TERMS AGREEMENT
+           ===================================================== */
+
+        .terms-agreement {
+
+            grid-column:
+                1 / -1;
+
             margin-top: 2px;
-            flex-shrink: 0;
+
         }
 
-        .terms-row label {
-            font-family: Arial, sans-serif;
-            font-size: 11px;
-            line-height: 1.5;
-            color: #333;
+
+        .terms-agreement label {
+
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 8px;
+
+            font-family:
+                Georgia,
+                "Times New Roman",
+                serif;
+
+            font-size: 14px;
+
+            color: #333333;
+
+            cursor: pointer;
+
         }
 
-        .terms-row a,
-        .login-prompt a {
-            color: #00618b;
-            font-weight: 600;
-            text-decoration: none;
+
+        .terms-agreement input {
+
+            width: 17px;
+
+            height: 17px;
+
+            margin-top: 1px;
+
+            cursor: pointer;
+
+            accent-color: #1478b5;
+
         }
 
-        .terms-row a:hover,
-        .login-prompt a:hover {
+
+        .terms-agreement a {
+
+            color: #0074b5;
+
+            font-weight: bold;
+
             text-decoration: underline;
+
         }
+
+
+        /* =====================================================
+           BUTTON AREA
+           ===================================================== */
+
+        .button-area {
+
+            margin-top: 14px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+        }
+
+
+        /* =====================================================
+           REGISTER BUTTON
+           ===================================================== */
 
         .register-button {
-            width: 100%;
-            height: 43px;
-            margin-top: 17px;
-            border: 1px solid #075d8d;
-            border-radius: 8px;
-            background: #0877b5;
-            color: #fff;
-            font-family: Georgia, "Times New Roman", serif;
-            font-size: 17px;
-            font-weight: 600;
+
+            width: 255px;
+
+            height: 48px;
+
+            border: none;
+
+            border-radius: 9px;
+
+            background: #1478b5;
+
+            color: #ffffff;
+
+            font-family:
+                Georgia,
+                "Times New Roman",
+                serif;
+
+            font-size: 18px;
+
             cursor: pointer;
+
+            box-shadow:
+                inset 3px 0 0
+                rgba(0, 0, 0, 0.15);
+
         }
+
 
         .register-button:hover {
-            background: #06689e;
+
+            background: #0e669d;
+
         }
+
+
+        .register-button:active {
+
+            transform:
+                scale(0.99);
+
+        }
+
 
         .register-button:disabled {
-            background: #7faec7;
-            border-color: #7faec7;
+
+            background: #7ea9c1;
+
             cursor: not-allowed;
+
         }
 
-        .spinner {
-            display: none;
-            width: 16px;
-            height: 16px;
-            border: 2px solid rgba(255,255,255,.5);
-            border-top-color: #fff;
-            border-radius: 50%;
-            animation: spin .7s linear infinite;
+
+        /* =====================================================
+           TERMS AND CONDITIONS BUTTON
+           ===================================================== */
+
+        .terms-button {
+
+            margin-top: 10px;
+
+            border: none;
+
+            background: transparent;
+
+            color: #0074b5;
+
+            font-family:
+                Georgia,
+                "Times New Roman",
+                serif;
+
+            font-size: 15px;
+
+            text-decoration: underline;
+
+            cursor: pointer;
+
         }
 
-        .register-button.loading .spinner {
-            display: inline-block;
+
+        .terms-button:hover {
+
+            color: #004f7a;
+
         }
 
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
 
-        .login-prompt {
-            margin: 9px 0 0;
+        /* =====================================================
+           LOGIN LINK
+           ===================================================== */
+
+        .login-section {
+
             text-align: center;
-            font-size: 13px;
+
+            margin-top: 7px;
+
+            font-size: 17px;
+
+            color: #111111;
+
         }
+
+
+        .login-section a {
+
+            color: #0078b8;
+
+            text-decoration: none;
+
+        }
+
+
+        .login-section a:hover {
+
+            text-decoration: underline;
+
+        }
+
+
+        /* =====================================================
+           TERMS MODAL
+           ===================================================== */
+
+        .terms-modal {
+
+            display: none;
+
+            position: fixed;
+
+            z-index: 9999;
+
+            left: 0;
+
+            top: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            background:
+                rgba(0, 0, 0, 0.60);
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 20px;
+
+        }
+
+
+        .terms-modal.active {
+
+            display: flex;
+
+        }
+
+
+        /* =====================================================
+           TERMS BOX
+           ===================================================== */
+
+        .terms-box {
+
+            width: 100%;
+
+            max-width: 650px;
+
+            max-height: 82vh;
+
+            background: #ffffff;
+
+            border-radius: 20px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 15px 40px
+                rgba(0, 0, 0, 0.40);
+
+            display: flex;
+
+            flex-direction: column;
+
+        }
+
+
+        /* =====================================================
+           TERMS HEADER
+           ===================================================== */
+
+        .terms-header {
+
+            background: #ffdb4a;
+
+            padding:
+                16px 22px;
+
+            border-bottom:
+                4px solid #1478b5;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+        }
+
+
+        .terms-header h2 {
+
+            font-family:
+                Georgia,
+                "Times New Roman",
+                serif;
+
+            color: #00567d;
+
+            font-size: 23px;
+
+        }
+
+
+        .close-terms {
+
+            border: none;
+
+            background: transparent;
+
+            font-size: 30px;
+
+            cursor: pointer;
+
+            color: #222222;
+
+        }
+
+
+        .close-terms:hover {
+
+            color: #d00000;
+
+        }
+
+
+        /* =====================================================
+           TERMS CONTENT
+           ===================================================== */
+
+        .terms-content {
+
+            padding:
+                22px 26px;
+
+            overflow-y: auto;
+
+            color: #222222;
+
+            font-family:
+                Georgia,
+                "Times New Roman",
+                serif;
+
+            font-size: 14px;
+
+            line-height: 1.55;
+
+        }
+
+
+        .terms-content h3 {
+
+            color: #00618e;
+
+            font-size: 16px;
+
+            margin-top: 17px;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        .terms-content h3:first-child {
+
+            margin-top: 0;
+
+        }
+
+
+        .terms-content p {
+
+            margin-bottom: 8px;
+
+        }
+
+
+        /* =====================================================
+           TERMS FOOTER
+           ===================================================== */
+
+        .terms-footer {
+
+            padding:
+                12px 20px;
+
+            border-top:
+                1px solid #dddddd;
+
+            background: #f7fcfd;
+
+            text-align: right;
+
+        }
+
+
+        .terms-ok {
+
+            border: none;
+
+            border-radius: 7px;
+
+            background: #1478b5;
+
+            color: #ffffff;
+
+            padding:
+                9px 20px;
+
+            font-family:
+                Georgia,
+                "Times New Roman",
+                serif;
+
+            font-size: 14px;
+
+            cursor: pointer;
+
+        }
+
+
+        .terms-ok:hover {
+
+            background: #0e669d;
+
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+           ===================================================== */
 
         @media (max-width: 700px) {
+
             body {
-                background-attachment: scroll;
+
+                padding: 15px;
+
+                align-items: flex-start;
+
             }
 
-            .page-shell {
-                padding: 25px 15px;
-            }
-
-            .register-card {
-                padding: 32px 30px 28px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .page-shell {
-                padding: 18px 10px;
-            }
 
             .register-card {
-                padding: 27px 22px 24px;
-                border-radius: 20px;
+
+                margin-top: 10px;
+
+                padding:
+                    25px 22px 20px;
+
+                border-radius: 22px;
+
             }
 
-            .register-header h1 {
-                font-size: 29px;
+
+            .form-grid {
+
+                grid-template-columns: 1fr;
+
+                column-gap: 0;
+
             }
 
-            .register-header p {
+
+            .full {
+
+                grid-column: auto;
+
+            }
+
+
+            .terms-agreement {
+
+                grid-column: auto;
+
+            }
+
+
+            .header h1 {
+
+                font-size: 27px;
+
+            }
+
+
+            .header p {
+
                 font-size: 16px;
+
             }
+
+
+            .form-group label {
+
+                font-size: 17px;
+
+            }
+
+
+            .form-input,
+            .form-select {
+
+                height: 46px;
+
+            }
+
 
             .password-rules {
-                grid-template-columns: 1fr;
+
+                font-size: 15px;
+
             }
 
-            #strengthText {
-                min-width: 105px;
-                font-size: 10px;
+
+            .captcha-container {
+
+                justify-content: flex-start;
+
             }
+
         }
 
-        @media (max-width: 350px) {
+
+        @media (max-width: 430px) {
+
             .register-card {
-                padding: 23px 17px 21px;
+
+                padding:
+                    22px 17px 18px;
+
             }
 
-            .strength-row {
-                flex-direction: column;
-                align-items: stretch;
+
+            .captcha-box {
+
+                width: 100%;
+
             }
 
-            #strengthText {
-                text-align: left;
+
+            .register-button {
+
+                width: 100%;
+
             }
+
         }
+
     </style>
+
 </head>
 
 
 <body>
 
-<main class="page-shell">
 
-    <section class="register-card" aria-labelledby="register-title">
+<!-- =====================================================
+     REGISTER CARD
+     ===================================================== -->
 
-        <header class="register-header">
-            <h1 id="register-title">Register</h1>
-            <p>Create your account</p>
-        </header>
+<div class="register-card">
 
 
-        <!-- Flask messages -->
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
+    <!-- =================================================
+         HEADER
+         ================================================= -->
+
+    <div class="header">
+
+        <h1>
+            Create Account
+        </h1>
+
+        <p>
+            Fill the information below to register.
+        </p>
+
+    </div>
+
+
+    <!-- =================================================
+         FLASH MESSAGES FROM FLASK
+         ================================================= -->
+
+    {% with messages = get_flashed_messages(
+        with_categories=true
+    ) %}
+
+        {% if messages %}
+
+            <div class="flash-container">
+
                 {% for category, message in messages %}
-                    <div class="form-message {{ category }}" role="alert">
+
+                    <div class="flash {{ category }}">
+
                         {{ message }}
+
                     </div>
+
                 {% endfor %}
-            {% endif %}
-        {% endwith %}
+
+            </div>
+
+        {% endif %}
+
+    {% endwith %}
 
 
-        <form
-            id="registerForm"
-            method="POST"
-            action="{{ url_for('register') }}"
-            novalidate>
+    <!-- =================================================
+         REGISTRATION FORM
+         ================================================= -->
+
+    <form
+        id="registerForm"
+        method="POST"
+        action="{{ url_for('register') }}"
+        novalidate
+    >
 
 
-            <!-- Full Name -->
-            <div class="field">
+        <div class="form-grid">
 
-                <label for="fullName">
+
+            <!-- =========================================
+                 FULL NAME
+                 ========================================= -->
+
+            <div class="form-group">
+
+                <label for="full_name">
+
                     Full Name
+                    <span class="required">*</span>
+
                 </label>
 
                 <input
                     type="text"
-                    id="fullName"
+                    id="full_name"
                     name="full_name"
-                    placeholder="Enter full name"
+                    class="form-input"
+                    placeholder="Enter your Full Name"
                     autocomplete="name"
                     required
                 >
 
-                <small
-                    class="error-message"
-                    id="fullNameError">
-                </small>
-
             </div>
 
 
-            <!-- Username -->
-            <div class="field">
+            <!-- =========================================
+                 USERNAME
+                 ========================================= -->
+
+            <div class="form-group">
 
                 <label for="username">
+
                     Username
+                    <span class="required">*</span>
+
                 </label>
 
                 <input
                     type="text"
                     id="username"
                     name="username"
-                    placeholder="Enter username"
+                    class="form-input"
+                    placeholder="Enter your Username"
                     autocomplete="username"
                     minlength="3"
-                    maxlength="30"
                     required
                 >
-
-                <small class="field-hint">
-                    3–30 characters; letters, numbers,
-                    periods, underscores, and hyphens only.
-                </small>
-
-                <small
-                    class="error-message"
-                    id="usernameError">
-                </small>
 
             </div>
 
 
-            <!-- Email -->
-            <div class="field">
+            <!-- =========================================
+                 EMAIL
+                 ========================================= -->
+
+            <div class="form-group">
 
                 <label for="email">
-                    Email Address
+
+                    E-mail Address
+                    <span class="required">*</span>
+
                 </label>
 
                 <input
                     type="email"
                     id="email"
                     name="email"
-                    placeholder="Enter email address"
+                    class="form-input"
+                    placeholder="Enter your e-mail address"
                     autocomplete="email"
                     required
                 >
 
-                <small
-                    class="error-message"
-                    id="emailError">
-                </small>
-
             </div>
 
 
-            <!-- Password -->
-            <div class="field">
+            <!-- =========================================
+                 PASSWORD
+                 ========================================= -->
+
+            <div class="form-group">
 
                 <label for="password">
+
                     Password
+                    <span class="required">*</span>
+
                 </label>
 
-                <div class="password-wrap">
+
+                <div class="input-wrapper">
 
                     <input
                         type="password"
                         id="password"
                         name="password"
-                        placeholder="Enter password"
+                        class="form-input password-input"
+                        placeholder="Enter your Password"
                         autocomplete="new-password"
                         required
                     >
 
-                    <button
-                        class="password-toggle"
-                        type="button"
-                        data-target="password"
-                        aria-label="Show password">
 
-                        👁
+                    <button
+                        type="button"
+                        class="toggle-password"
+                        id="togglePassword"
+                        aria-label="Show password"
+                    >
+
+                        ◉
 
                     </button>
 
                 </div>
 
 
-                <div class="strength-row">
+                <div class="password-rules">
 
-                    <div class="strength-track">
-                        <span id="strengthBar"></span>
-                    </div>
+                    <p>
+                        Password must contain:
+                    </p>
 
-                    <span id="strengthText">
-                        Password strength: —
-                    </span>
+                    <ul>
+
+                        <li>
+                            At least 8 characters
+                        </li>
+
+                        <li>
+                            1 uppercase
+                        </li>
+
+                        <li>
+                            1 lowercase
+                        </li>
+
+                        <li>
+                            1 number
+                        </li>
+
+                        <li>
+                            1 special character
+                        </li>
+
+                    </ul>
 
                 </div>
-
-
-                <ul class="password-rules" id="passwordRules">
-
-                    <li data-rule="length">
-                        <span>○</span>
-                        At least 8 characters
-                    </li>
-
-                    <li data-rule="uppercase">
-                        <span>○</span>
-                        One uppercase letter
-                    </li>
-
-                    <li data-rule="lowercase">
-                        <span>○</span>
-                        One lowercase letter
-                    </li>
-
-                    <li data-rule="number">
-                        <span>○</span>
-                        One number
-                    </li>
-
-                    <li data-rule="special">
-                        <span>○</span>
-                        One special character
-                    </li>
-
-                </ul>
-
-
-                <small
-                    class="caps-warning"
-                    id="capsWarning"
-                    hidden>
-                    Caps Lock is on.
-                </small>
-
-
-                <small
-                    class="error-message"
-                    id="passwordError">
-                </small>
 
             </div>
 
 
-            <!-- Confirm Password -->
-            <div class="field">
+            <!-- =========================================
+                 DEPARTMENT
+                 ========================================= -->
 
-                <label for="confirmPassword">
-                    Confirm Password
+            <div class="form-group">
+
+                <label for="department">
+
+                    Department
+
                 </label>
 
-                <div class="password-wrap">
+                <input
+                    type="text"
+                    id="department"
+                    name="department"
+                    class="form-input"
+                    placeholder="Enter your Department"
+                >
+
+            </div>
+
+
+            <!-- =========================================
+                 CONFIRM PASSWORD
+                 ========================================= -->
+
+            <div class="form-group">
+
+                <label for="confirm_password">
+
+                    Confirm Password
+                    <span class="required">*</span>
+
+                </label>
+
+
+                <div class="input-wrapper">
 
                     <input
                         type="password"
-                        id="confirmPassword"
+                        id="confirm_password"
                         name="confirm_password"
-                        placeholder="Re-enter password"
+                        class="form-input password-input"
+                        placeholder="confirm your password"
                         autocomplete="new-password"
                         required
                     >
 
-                    <button
-                        class="password-toggle"
-                        type="button"
-                        data-target="confirmPassword"
-                        aria-label="Show confirm password">
 
-                        👁
+                    <button
+                        type="button"
+                        class="toggle-password"
+                        id="toggleConfirmPassword"
+                        aria-label="Show password"
+                    >
+
+                        ◉
 
                     </button>
 
                 </div>
 
-                <small
-                    class="error-message"
-                    id="confirmPasswordError">
-                </small>
+            </div>
+
+
+            <!-- =========================================
+                 CAPTCHA
+                 ========================================= -->
+
+            <div class="form-group full">
+
+                <div class="captcha-container">
+
+                    <div class="captcha-box">
+
+                        <input
+                            type="checkbox"
+                            id="captcha"
+                            name="captcha"
+                            value="verified"
+                            required
+                        >
+
+                        <span class="captcha-text">
+
+                            I'm not a robot
+
+                        </span>
+
+
+                        <span class="captcha-symbol">
+
+                            ↻
+
+                        </span>
+
+                    </div>
+
+                </div>
 
             </div>
 
 
-            <!-- CAPTCHA -->
-            <div class="captcha-box">
+            <!-- =========================================
+                 TERMS AGREEMENT CHECKBOX
+                 ========================================= -->
 
-                <label class="captcha-label">
+            <div class="terms-agreement">
+
+                <label for="terms">
 
                     <input
                         type="checkbox"
-                        id="captcha"
-                        name="captcha"
-                        value="verified"
+                        id="terms"
+                        name="terms"
+                        value="accepted"
                         required
                     >
 
                     <span>
-                        I'm not a robot
+
+                        I agree to the
+                        <a
+                            href="#"
+                            id="termsInlineLink"
+                        >
+                            Terms and Conditions
+                        </a>
+                        of COREBOUND.
+
                     </span>
 
                 </label>
 
-                <span class="captcha-mark">
-                    ↻
-                </span>
-
             </div>
 
-            <small
-                class="error-message"
-                id="captchaError">
-            </small>
+
+        </div>
 
 
-            <!-- Terms -->
-            <div class="terms-row">
+        <!-- =================================================
+             BUTTON AREA
+             ================================================= -->
 
-                <input
-                    type="checkbox"
-                    id="terms"
-                    name="terms"
-                    value="accepted"
-                    required
-                >
-
-                <label for="terms">
-
-                    I agree to the
-
-                    <a href="#">
-                        Terms and Conditions
-                    </a>
-
-                    and
-
-                    <a href="#">
-                        Privacy Policy
-                    </a>.
-
-                </label>
-
-            </div>
-
-            <small
-                class="error-message"
-                id="termsError">
-            </small>
+        <div class="button-area">
 
 
-            <!-- Register -->
+            <!-- =============================================
+                 REGISTER
+                 ============================================= -->
+
             <button
+                type="submit"
                 class="register-button"
                 id="registerButton"
-                type="submit">
+            >
 
-                <span id="buttonText">
-                    Create Account
-                </span>
-
-                <span
-                    class="spinner"
-                    aria-hidden="true">
-                </span>
+                Register
 
             </button>
 
 
-            <!-- Login -->
-            <p class="login-prompt">
+            <!-- =============================================
+                 TERMS AND CONDITIONS BUTTON
+                 ============================================= -->
 
-                Already have an account?
+            <button
+                type="button"
+                class="terms-button"
+                id="termsButton"
+            >
 
-                <a href="{{ url_for('login') }}">
-                    Login
-                </a>
+                Terms and Conditions
+
+            </button>
+
+
+        </div>
+
+
+        <!-- =================================================
+             LOGIN
+             ================================================= -->
+
+        <div class="login-section">
+
+            already have an account?
+
+            <a href="{{ url_for('login') }}">
+
+                Login
+
+            </a>
+
+        </div>
+
+
+    </form>
+
+
+</div>
+
+
+<!-- =====================================================
+     TERMS AND CONDITIONS MODAL
+     ===================================================== -->
+
+<div
+    class="terms-modal"
+    id="termsModal"
+>
+
+
+    <div class="terms-box">
+
+
+        <!-- =============================================
+             MODAL HEADER
+             ============================================= -->
+
+        <div class="terms-header">
+
+            <h2>
+
+                Terms and Conditions
+
+            </h2>
+
+
+            <button
+                type="button"
+                class="close-terms"
+                id="closeTerms"
+            >
+
+                &times;
+
+            </button>
+
+        </div>
+
+
+        <!-- =============================================
+             TERMS CONTENT
+             ============================================= -->
+
+        <div class="terms-content">
+
+
+            <h3>
+                1. Acceptance of Terms
+            </h3>
+
+            <p>
+
+                By creating a COREBOUND account, you agree
+                to follow these Terms and Conditions and use
+                the system responsibly.
 
             </p>
 
-        </form>
 
-    </section>
+            <h3>
+                2. Account Information
+            </h3>
 
-</main>
+            <p>
 
+                You are responsible for providing accurate
+                information during registration and for
+                keeping your account information secure.
+
+            </p>
+
+
+            <h3>
+                3. Facility Reports
+            </h3>
+
+            <p>
+
+                COREBOUND is intended for reporting damaged,
+                unsafe, or malfunctioning facilities and
+                equipment within the campus. Reports should
+                contain truthful and relevant information.
+
+            </p>
+
+
+            <h3>
+                4. Appropriate Use
+            </h3>
+
+            <p>
+
+                Users must not submit false, misleading,
+                abusive, or inappropriate reports. The system
+                should only be used for legitimate facility
+                and equipment concerns.
+
+            </p>
+
+
+            <h3>
+                5. Report Information
+            </h3>
+
+            <p>
+
+                Information submitted through COREBOUND may
+                be reviewed by authorized personnel for the
+                purpose of evaluating and addressing reported
+                facility concerns.
+
+            </p>
+
+
+            <h3>
+                6. Account Security
+            </h3>
+
+            <p>
+
+                Users are responsible for keeping their
+                username and password confidential and should
+                not share their account credentials with
+                other individuals.
+
+            </p>
+
+
+            <h3>
+                7. Changes to the Terms
+            </h3>
+
+            <p>
+
+                The Terms and Conditions may be updated when
+                necessary to reflect changes in the COREBOUND
+                system or its intended use.
+
+            </p>
+
+
+            <h3>
+                8. Agreement
+            </h3>
+
+            <p>
+
+                By checking the agreement box during
+                registration, you confirm that you have read,
+                understood, and agreed to these Terms and
+                Conditions.
+
+            </p>
+
+
+        </div>
+
+
+        <!-- =============================================
+             MODAL FOOTER
+             ============================================= -->
+
+        <div class="terms-footer">
+
+            <button
+                type="button"
+                class="terms-ok"
+                id="termsOk"
+            >
+
+                I Understand
+
+            </button>
+
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+     ===================================================== -->
 
 <script>
 
-document.addEventListener("DOMContentLoaded", function () {
 
-    const form = document.getElementById("registerForm");
+    /* ====================================================
+       PASSWORD SHOW / HIDE
+       ==================================================== */
 
-    const fullName = document.getElementById("fullName");
-    const username = document.getElementById("username");
-    const email = document.getElementById("email");
-    const password = document.getElementById("password");
-    const confirmPassword = document.getElementById("confirmPassword");
+    const password =
+        document.getElementById("password");
 
-    const captcha = document.getElementById("captcha");
-    const terms = document.getElementById("terms");
+    const confirmPassword =
+        document.getElementById(
+            "confirm_password"
+        );
 
-    const registerButton =
-        document.getElementById("registerButton");
+    const togglePassword =
+        document.getElementById(
+            "togglePassword"
+        );
 
-    const buttonText =
-        document.getElementById("buttonText");
+    const toggleConfirmPassword =
+        document.getElementById(
+            "toggleConfirmPassword"
+        );
 
-    const strengthBar =
-        document.getElementById("strengthBar");
 
-    const strengthText =
-        document.getElementById("strengthText");
+    togglePassword.addEventListener(
+        "click",
+        function () {
 
-    const capsWarning =
-        document.getElementById("capsWarning");
+            if (
+                password.type === "password"
+            ) {
 
+                password.type = "text";
 
-    const errors = {
-        fullName: document.getElementById("fullNameError"),
-        username: document.getElementById("usernameError"),
-        email: document.getElementById("emailError"),
-        password: document.getElementById("passwordError"),
-        confirmPassword:
-            document.getElementById("confirmPasswordError"),
-        captcha:
-            document.getElementById("captchaError"),
-        terms:
-            document.getElementById("termsError")
-    };
-
-
-    function setError(input, errorElement, message) {
-
-        input.classList.add("input-error");
-        input.classList.remove("input-valid");
-
-        errorElement.textContent = message;
-    }
-
-
-    function setValid(input, errorElement) {
-
-        input.classList.remove("input-error");
-        input.classList.add("input-valid");
-
-        errorElement.textContent = "";
-    }
-
-
-    function validateFullName() {
-
-        const value = fullName.value.trim();
-
-        if (!value) {
-
-            setError(
-                fullName,
-                errors.fullName,
-                "Please enter your full name."
-            );
-
-            return false;
-        }
-
-        setValid(fullName, errors.fullName);
-
-        return true;
-    }
-
-
-    function validateUsername() {
-
-        username.value = username.value.trim();
-
-        const value = username.value;
-
-        if (!value) {
-
-            setError(
-                username,
-                errors.username,
-                "Please enter a username."
-            );
-
-            return false;
-        }
-
-        if (value.length < 3) {
-
-            setError(
-                username,
-                errors.username,
-                "Username must be at least 3 characters."
-            );
-
-            return false;
-        }
-
-        if (value.length > 30) {
-
-            setError(
-                username,
-                errors.username,
-                "Username must not exceed 30 characters."
-            );
-
-            return false;
-        }
-
-        if (!/^[A-Za-z0-9._-]+$/.test(value)) {
-
-            setError(
-                username,
-                errors.username,
-                "Username contains invalid characters."
-            );
-
-            return false;
-        }
-
-        setValid(username, errors.username);
-
-        return true;
-    }
-
-
-    function validateEmail() {
-
-        email.value = email.value.trim();
-
-        const value = email.value;
-
-        if (!value) {
-
-            setError(
-                email,
-                errors.email,
-                "Please enter your email address."
-            );
-
-            return false;
-        }
-
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-
-            setError(
-                email,
-                errors.email,
-                "Please enter a valid email address."
-            );
-
-            return false;
-        }
-
-        setValid(email, errors.email);
-
-        return true;
-    }
-
-
-    function getPasswordRules(value) {
-
-        return {
-            length: value.length >= 8,
-            uppercase: /[A-Z]/.test(value),
-            lowercase: /[a-z]/.test(value),
-            number: /[0-9]/.test(value),
-            special: /[^A-Za-z0-9]/.test(value)
-        };
-    }
-
-
-    function updatePasswordStrength() {
-
-        const rules = getPasswordRules(password.value);
-
-        Object.keys(rules).forEach(function (rule) {
-
-            const item =
-                document.querySelector(
-                    '[data-rule="' + rule + '"]'
-                );
-
-            const icon =
-                item.querySelector("span");
-
-            if (rules[rule]) {
-
-                item.classList.add("valid");
-                icon.textContent = "✓";
+                togglePassword.textContent =
+                    "◉";
 
             } else {
 
-                item.classList.remove("valid");
-                icon.textContent = "○";
+                password.type = "password";
+
+                togglePassword.textContent =
+                    "◉";
+
             }
-        });
 
-
-        const passed =
-            Object.values(rules)
-                .filter(Boolean)
-                .length;
-
-
-        strengthBar.style.width =
-            (passed * 20) + "%";
-
-
-        if (!password.value) {
-
-            strengthText.textContent =
-                "Password strength: —";
-
-            strengthBar.style.background =
-                "#aaa";
-
-        } else if (passed <= 2) {
-
-            strengthText.textContent =
-                "Password strength: Weak";
-
-            strengthBar.style.background =
-                "#c62828";
-
-        } else if (passed <= 4) {
-
-            strengthText.textContent =
-                "Password strength: Medium";
-
-            strengthBar.style.background =
-                "#d28a00";
-
-        } else {
-
-            strengthText.textContent =
-                "Password strength: Strong";
-
-            strengthBar.style.background =
-                "#238447";
         }
+    );
 
 
-        return rules;
-    }
+    toggleConfirmPassword.addEventListener(
+        "click",
+        function () {
 
+            if (
+                confirmPassword.type === "password"
+            ) {
 
-    function validatePassword() {
+                confirmPassword.type = "text";
 
-        const value = password.value;
+                toggleConfirmPassword.textContent =
+                    "◉";
 
-        if (!value) {
+            } else {
 
-            setError(
-                password,
-                errors.password,
-                "Please enter a password."
-            );
+                confirmPassword.type = "password";
 
-            return false;
+                toggleConfirmPassword.textContent =
+                    "◉";
+
+            }
+
         }
+    );
 
 
-        const rules =
-            getPasswordRules(value);
+    /* ====================================================
+       TERMS MODAL
+       ==================================================== */
 
-
-        if (!Object.values(rules).every(Boolean)) {
-
-            setError(
-                password,
-                errors.password,
-                "Password does not meet the required security rules."
-            );
-
-            return false;
-        }
-
-
-        setValid(password, errors.password);
-
-        return true;
-    }
-
-
-    function validateConfirmPassword() {
-
-        if (
-            !confirmPassword.value ||
-            confirmPassword.value !== password.value
-        ) {
-
-            setError(
-                confirmPassword,
-                errors.confirmPassword,
-                "Passwords do not match."
-            );
-
-            return false;
-        }
-
-        setValid(
-            confirmPassword,
-            errors.confirmPassword
+    const termsModal =
+        document.getElementById(
+            "termsModal"
         );
 
-        return true;
+    const termsButton =
+        document.getElementById(
+            "termsButton"
+        );
+
+    const termsInlineLink =
+        document.getElementById(
+            "termsInlineLink"
+        );
+
+    const closeTerms =
+        document.getElementById(
+            "closeTerms"
+        );
+
+    const termsOk =
+        document.getElementById(
+            "termsOk"
+        );
+
+
+    function openTerms() {
+
+        termsModal.classList.add(
+            "active"
+        );
+
+        document.body.style.overflow =
+            "hidden";
+
     }
 
 
-    function validateCaptcha() {
+    function closeTermsModal() {
 
-        if (!captcha.checked) {
+        termsModal.classList.remove(
+            "active"
+        );
 
-            errors.captcha.textContent =
-                "Please complete the CAPTCHA.";
+        document.body.style.overflow =
+            "";
 
-            return false;
-        }
-
-        errors.captcha.textContent = "";
-
-        return true;
     }
 
 
-    function validateTerms() {
-
-        if (!terms.checked) {
-
-            errors.terms.textContent =
-                "Please agree to the Terms and Conditions.";
-
-            return false;
-        }
-
-        errors.terms.textContent = "";
-
-        return true;
-    }
-
-
-    /* Password show/hide */
-
-    document
-        .querySelectorAll(".password-toggle")
-        .forEach(function (button) {
-
-            button.addEventListener("click", function () {
-
-                const input =
-                    document.getElementById(
-                        button.dataset.target
-                    );
-
-
-                if (input.type === "password") {
-
-                    input.type = "text";
-                    button.textContent = "🙈";
-                    button.setAttribute(
-                        "aria-label",
-                        "Hide password"
-                    );
-
-                } else {
-
-                    input.type = "password";
-                    button.textContent = "👁";
-                    button.setAttribute(
-                        "aria-label",
-                        "Show password"
-                    );
-                }
-
-            });
-
-        });
-
-
-    password.addEventListener("input", function () {
-
-        updatePasswordStrength();
-        validatePassword();
-
-        if (confirmPassword.value) {
-            validateConfirmPassword();
-        }
-
-    });
-
-
-    confirmPassword.addEventListener(
-        "input",
-        validateConfirmPassword
+    termsButton.addEventListener(
+        "click",
+        openTerms
     );
 
 
-    password.addEventListener("keyup", function (event) {
-
-        capsWarning.hidden =
-            !event.getModifierState("CapsLock");
-
-    });
-
-
-    confirmPassword.addEventListener(
-        "keyup",
+    termsInlineLink.addEventListener(
+        "click",
         function (event) {
-
-            capsWarning.hidden =
-                !event.getModifierState("CapsLock");
-
-        }
-    );
-
-
-    fullName.addEventListener(
-        "blur",
-        validateFullName
-    );
-
-
-    username.addEventListener(
-        "blur",
-        validateUsername
-    );
-
-
-    email.addEventListener(
-        "blur",
-        validateEmail
-    );
-
-
-    captcha.addEventListener(
-        "change",
-        validateCaptcha
-    );
-
-
-    terms.addEventListener(
-        "change",
-        validateTerms
-    );
-
-
-    /* Submit */
-
-    form.addEventListener("submit", function (event) {
-
-        const valid =
-            validateFullName() &&
-            validateUsername() &&
-            validateEmail() &&
-            validatePassword() &&
-            validateConfirmPassword() &&
-            validateCaptcha() &&
-            validateTerms();
-
-
-        if (!valid) {
 
             event.preventDefault();
 
-            const firstError =
-                document.querySelector(".input-error");
+            openTerms();
 
-            if (firstError) {
-                firstError.focus();
+        }
+    );
+
+
+    closeTerms.addEventListener(
+        "click",
+        closeTermsModal
+    );
+
+
+    termsOk.addEventListener(
+        "click",
+        closeTermsModal
+    );
+
+
+    termsModal.addEventListener(
+        "click",
+        function (event) {
+
+            if (
+                event.target === termsModal
+            ) {
+
+                closeTermsModal();
+
             }
 
-            return;
         }
+    );
 
 
-        /*
-         * Client-side validation passed.
-         * Flask will now receive the POST request.
-         */
+    document.addEventListener(
+        "keydown",
+        function (event) {
 
-        registerButton.disabled = true;
+            if (
+                event.key === "Escape"
+            ) {
 
-        registerButton.classList.add("loading");
+                closeTermsModal();
 
-        buttonText.textContent =
-            "Creating Account...";
+            }
 
-    });
+        }
+    );
 
-});
+
+    /* ====================================================
+       FORM VALIDATION
+       ==================================================== */
+
+    const registerForm =
+        document.getElementById(
+            "registerForm"
+        );
+
+    const registerButton =
+        document.getElementById(
+            "registerButton"
+        );
+
+
+    registerForm.addEventListener(
+        "submit",
+        function (event) {
+
+
+            const fullName =
+                document.getElementById(
+                    "full_name"
+                ).value.trim();
+
+
+            const username =
+                document.getElementById(
+                    "username"
+                ).value.trim();
+
+
+            const email =
+                document.getElementById(
+                    "email"
+                ).value.trim();
+
+
+            const passwordValue =
+                password.value;
+
+
+            const confirmPasswordValue =
+                confirmPassword.value;
+
+
+            const captcha =
+                document.getElementById(
+                    "captcha"
+                );
+
+
+            const terms =
+                document.getElementById(
+                    "terms"
+                );
+
+
+            /* ==========================================
+               FULL NAME
+               ========================================== */
+
+            if (!fullName) {
+
+                event.preventDefault();
+
+                alert(
+                    "Please enter your full name."
+                );
+
+                return;
+
+            }
+
+
+            /* ==========================================
+               USERNAME
+               ========================================== */
+
+            if (
+                username.length < 3
+            ) {
+
+                event.preventDefault();
+
+                alert(
+                    "Username must be at least 3 characters."
+                );
+
+                return;
+
+            }
+
+
+            /* ==========================================
+               EMAIL
+               ========================================== */
+
+            const emailPattern =
+                /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+            if (
+                !emailPattern.test(email)
+            ) {
+
+                event.preventDefault();
+
+                alert(
+                    "Please enter a valid email address."
+                );
+
+                return;
+
+            }
+
+
+            /* ==========================================
+               PASSWORD LENGTH
+               ========================================== */
+
+            if (
+                passwordValue.length < 8
+            ) {
+
+                event.preventDefault();
+
+                alert(
+                    "Password must contain at least 8 characters."
+                );
+
+                return;
+
+            }
+
+
+            /* ==========================================
+               UPPERCASE
+               ========================================== */
+
+            if (
+                !/[A-Z]/.test(passwordValue)
+            ) {
+
+                event.preventDefault();
+
+                alert(
+                    "Password must contain at least one uppercase letter."
+                );
+
+                return;
+
+            }
+
+
+            /* ==========================================
+               LOWERCASE
+               ========================================== */
+
+            if (
+                !/[a-z]/.test(passwordValue)
+            ) {
+
+                event.preventDefault();
+
+                alert(
+                    "Password must contain at least one lowercase letter."
+                );
+
+                return;
+
+            }
+
+
+            /* ==========================================
+               NUMBER
+               ========================================== */
+
+            if (
+                !/[0-9]/.test(passwordValue)
+            ) {
+
+                event.preventDefault();
+
+                alert(
+                    "Password must contain at least one number."
+                );
+
+                return;
+
+            }
+
+
+            /* ==========================================
+               SPECIAL CHARACTER
+               ========================================== */
+
+            if (
+                !/[^A-Za-z0-9]/.test(passwordValue)
+            ) {
+
+                event.preventDefault();
+
+                alert(
+                    "Password must contain at least one special character."
+                );
+
+                return;
+
+            }
+
+
+            /* ==========================================
+               CONFIRM PASSWORD
+               ========================================== */
+
+            if (
+                passwordValue !==
+                confirmPasswordValue
+            ) {
+
+                event.preventDefault();
+
+                alert(
+                    "Passwords do not match."
+                );
+
+                return;
+
+            }
+
+
+            /* ==========================================
+               CAPTCHA
+               ========================================== */
+
+            if (!captcha.checked) {
+
+                event.preventDefault();
+
+                alert(
+                    "Please confirm that you are not a robot."
+                );
+
+                return;
+
+            }
+
+
+            /* ==========================================
+               TERMS
+               ========================================== */
+
+            if (!terms.checked) {
+
+                event.preventDefault();
+
+                alert(
+                    "Please agree to the Terms and Conditions."
+                );
+
+                return;
+
+            }
+
+
+            /* ==========================================
+               SUBMITTING
+               ========================================== */
+
+            registerButton.disabled = true;
+
+            registerButton.textContent =
+                "Registering...";
+
+        }
+    );
+
 
 </script>
 
+
 </body>
+
 </html>
