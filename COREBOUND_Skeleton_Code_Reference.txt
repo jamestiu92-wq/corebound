@@ -1,0 +1,65 @@
+COREBOUND — SKELETON LOADING CODE REFERENCE
+
+Purpose
+
+This reference separates the skeleton-loading code locations from the
+main COREBOUND files so you can find and edit them more easily.
+
+IMPORTANT
+
+These are excerpts from the uploaded project files. Confirm that your
+local D:copy matches before replacing anything. Do not replace your
+entire app.py or dashboard.html with these excerpts.
+
+1. app.py — TRIGGER THE SKELETON AFTER LOGIN
+
+Find the login() function. After a successful login, the session
+includes:
+
+    session["show_skeleton"] = True  # dashboard shows the loading skeleton once
+
+This sets a flag. It does not draw the skeleton by itself.
+
+2. templates/Type_1/dashboard.html — ENABLE THE LOADING STATE
+
+The reporter dashboard template contains:
+
+    <body class="{{ 'loading' if show_skeleton }}">
+
+This adds the “loading” class to the page when show_skeleton is true.
+
+3. dashboard.html — SKELETON PLACEHOLDER
+
+The template includes a skeleton section similar to:
+
+    <!-- Skeleton: same layout as the real content, shown while loading -->
+    <div class="wrap skel" aria-hidden="true">
+        ...
+    </div>
+
+The ellipsis above means the original template contains the full
+placeholder markup. Keep that existing markup; do not replace it with
+the ellipsis.
+
+4. dashboard.html — ACCESSIBLE LOADING MESSAGE
+
+    <p class="sr-only" role="status" id="loadingMsg">
+      {% if show_skeleton %}Loading your dashboard{% endif %}
+    </p>
+
+5. WHICH FILE TO EDIT
+
+-   To set the loading flag after login: app.py
+-   To edit skeleton layout, colors, shapes, or animation:
+    Type_1/dashboard.html
+-   To make the skeleton disappear at the correct time: inspect the
+    dashboard’s CSS and JavaScript for the .loading, .skel, and .real
+    selectors and the code that removes the loading class or switches
+    the real content on.
+
+CHECK BEFORE EDITING
+
+The skeleton may be shared or separately implemented across different
+role dashboards. The excerpts found here confirm a skeleton-related flag
+in app.py and skeleton markup in an uploaded dashboard template, but do
+not prove that every dashboard uses the same implementation.
